@@ -1,14 +1,15 @@
-CREATE DATABASE IF NOT EXISTS restaurante;
+CREATE DATABASE IF NOT EXISTS restaurante_db;
 
-USE restaurante;
+USE restaurante_db;
 
 CREATE TABLE IF NOT EXISTS mesa(
-	mesa_id TINYINT NOT NULL AUTO_INCREMENT,
+	mesa_id TINYINT NOT NULL AUTO_INCREMENT, 
     mesa_capacidad TINYINT NOT NULL,
     mesa_estatus BOOLEAN NOT NULL,
     
-    PRIMARY KEY (mesa_id),
-    INDEX (mesa_capacidad, mesa_id)
+    PRIMARY KEY (mesa_id),			#Utilizaremos una llave artificial dado que el manejo por numero de mesas será más eficiente e intuitivo para el sistema
+    INDEX (mesa_capacidad),
+    INDEX (mesa_id)         
 );
 
 CREATE TABLE IF NOT EXISTS mesero(
@@ -17,8 +18,8 @@ CREATE TABLE IF NOT EXISTS mesero(
     mes_ap_pat VARCHAR (35) NOT NULL,
     mes_ap_mat VARCHAR (35),
     
-    PRIMARY KEY (mes_id),
-    INDEX (mes_nombre, mes_ap_pat)
+    PRIMARY KEY (mes_id),			#Es más eficiente manejar a los meseros por una llave artificial dado a que puede existir más de una persona con el
+    INDEX (mes_nombre, mes_ap_pat)  #mismo nombre, por esto mismo es mejor evitar posibles errores en la base de datos y asignar un ID a cada uno de ellos
 );
 
 
@@ -30,9 +31,10 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)' ,
     pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
     
-    PRIMARY KEY (pro_id),
-    INDEX (pro_nombre, pro_costo, pro_cob),
-    INDEX (pro_nombre, pro_categoria)
+    PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
+    UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
+    INDEX (pro_nombre),
+    INDEX ( pro_categoria)
 );
 
 
@@ -42,10 +44,11 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mes_id TINYINT,
     ord_estado ENUM ('abierta','cerrada','pagada') NOT NULL,
     ord_fecha DATETIME NOT NULL,
-    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los prooductos que se compraron y el precio de cada uno, sirve como desglose de cada producto',
+    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los prooductos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
     ord_tot INT NOT NULL,
     
-    PRIMARY KEY (ord_id),
+    PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
+    INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
     
     CONSTRAINT fk_mesa_orden
     FOREIGN KEY (ord_mesa_id)
@@ -56,7 +59,7 @@ CREATE TABLE IF NOT EXISTS orden(
     CONSTRAINT fk_mesero_orden
     FOREIGN KEY (ord_mes_id)
     REFERENCES mesero(mes_id)
-		ON DELETE RESTRICT		#Al utilizar RESTRICT podemos controlar el estado de las ordenes, además de que no podríamos eliminar ningún mesero mientras tenga ordenes con estado abierto
+		ON DELETE RESTRICT		#Al utilizar RESTRICT podemos controlar el estado de las ordenes, además de que no podríamos eliminar ningún mesero mientras tenga ordenes con estado "abierta"
         ON UPDATE CASCADE		#Con CASCADE no afecta de manera negativa a los datos de la orden si los actualizamos
 );
 
@@ -74,5 +77,5 @@ CREATE TABLE IF NOT EXISTS detalle(
     FOREIGN KEY (det_pro_id)
     REFERENCES producto(pro_id)
 		ON DELETE CASCADE		#Al eliminar productos de la base no es necesario guardar los detalles de la orden en donde se ordenaron, ya que las cuentas que están pagadas no son afectadas, sólo las de estado abierto o cerrado
-        ON UPDATE CASCADE		#
+        ON UPDATE CASCADE		#El actualizar los datos de un producto no afecta a esta tabla de manera negativa
 );
