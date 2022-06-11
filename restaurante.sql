@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de que es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
-    pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)' ,
+    pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
