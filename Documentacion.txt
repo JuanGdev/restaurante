@@ -1,0 +1,47 @@
+Primero instalamos en la carpeta de RESTAURANTE (o sea de forma global)
+-> npm i -g @vue/cli
+Esto es para instalar VUE en nuestro proyecto
+En caso de presentar problemas primero debes de ejecutar
+-> Set-ExecutionPolicy -Scope LocalMachine unrestricted
+
+Dentro de server ejecutamos
+-> npm init --yes
+Esto es para que el proyecto esté manejado por npm
+
+Ahora instalaremos en server EXPRESS con
+-> npm i express
+El cual nos ayudará a manejar las peticiones dentro de nuestro proyecto
+
+Para instalar NODEMON tendremos que utilizar el siguiente comando
+-> npm i -g nodemon
+Lo que hace NODEMON es que cuando detecta un nuevo guardado dentro de algun archivo reinicia la aplicación para ver estos cambios
+
+Morgan es un LOGGER que nos ayudará a ver que es lo que estamos haciendo con respuestas HTTP
+-> npm i morgan 
+Esto es dentro de nuestra carpeta server
+
+CORS es un paquete que nos ayudará a poder acceder a diferentes recursos desde diferentes rutas
+-> npm i cors
+Esto es dentro de nuestra carpeta server
+
+BABEL nos ayuda a que nuestro código sea retrocompatible con otras versiones de JS
+-> npm i -D @babel/core @babel/cli @babel/preset-env @babel/node
+Dentro de server
+
+Para poder utilizar BABEL crearemos un script dentro de package.json
+Además de un archivo de configuración dentro de server llamado .babelrc
+
+Para poder conectar nuestro proyecto con MYSQL es necesario instalar lo siguiente en server
+-> npm i mysql
+
+Luego de crear nuestro archivo de connection.js que nos ayudará a conectar a la BD crearemos una carpeta
+con el nombre routes, dentro de la cual habrá un archivo que nos ayudará a gestionar las rutas para nuestra base de datos
+
+Una vez definidos nuestros archivos para cada tabla en la carpeta de rutas tendremos que ejecutar el siguiente comando en restaurante:
+-> vue ui 
+El cual nos abrirá una pestaña en la cuál podremos crear proyectos, el cual es un sistema manejador de proyectos
+
+Por último instalaremos en nuestra carpeta client VUETIFY, el cual es un paquete que nos ayuda a darle presentación a nuestro proyecto,
+lo cual haremos con:
+-> vue add vuetify
+Esto en la carpeta client

@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Aplicación web para operaciones CRUD de un restaurante",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js --exec node_modules/.bin/babel-node"
+  },
+  "keywords": [],
+  "author": "Equipo 1",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.18.2",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}
