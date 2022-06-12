@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS mesero(
 CREATE TABLE IF NOT EXISTS producto(
 	pro_id INT NOT NULL AUTO_INCREMENT,
     pro_nombre VARCHAR(50) NOT NULL,
-    pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de que es lo que lleva',
+    pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
     pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS detalle(
         ON UPDATE CASCADE		#El actualizar los datos de un producto no afecta a esta tabla de manera negativa
 );
 
-# Inserciones de datos para prueba
+# Inserciones inciales de datos para la base de datos
 INSERT INTO mesa (mesa_capacidad,mesa_estatus) VALUES
 ('20', 'Libre'),
 ('17', 'Libre'),
@@ -92,3 +92,15 @@ INSERT INTO mesa (mesa_capacidad,mesa_estatus) VALUES
 ('5', 'Libre'),
 ('3', 'Libre'),
 ('1', 'Ocupada');
+
+INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
+VALUES ('Samantha','Squash','Pérez'),
+('Fernanda','Colunga','Ramírez'),
+('Solaire','Aguilar','Ávila'),
+('Hornet','Amador','Gómez'),
+('Pedro','Pérez','Prado'),
+('Idalid','Segoviano','Gudiño'),
+('Natalia','Hernández','González'),
+('Naomi','Gutiérrez','Arango'),
+('Pablo','Cinefilio','Haceres'),
+('Jair','Chávez','Playas');
