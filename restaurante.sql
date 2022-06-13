@@ -111,3 +111,6 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
 	
 # La tabla de órdenes y detalles se llena desde nuestra aplicación web
+
+INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
+	VALUES	('1', '1','cerrada','2022-06-13 01:22:00', "Pambazo de chorizo con papas", 65);
