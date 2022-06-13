@@ -18,7 +18,14 @@ export default new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
+        orange: '#FD9401',
+        yellow: '#FFC404',
+        teal: '#008080',
+        cof: '#935116',
+        green: '#2ECC71',
+        fucsia: '#F50656'
+
       },
     },
   },
