@@ -6,7 +6,7 @@ const connection = mysql.createPool({
     host:'localhost',
     user: 'master',                     
     password: '@master123',
-    database: 'restaurante'
+    database: 'restaurante_db'
 });
 
 /* Conexión a Base de Datos */
