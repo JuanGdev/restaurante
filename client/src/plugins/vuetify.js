@@ -20,10 +20,13 @@ export default new Vuetify({
         success: '#4CAF50',
         warning: '#FFC107',
         orange: '#FD9401',
+        orange_l: '#FEC065',
         yellow: '#FFC404',
         teal: '#008080',
+        teal_l: '#68CAB7',
         cof: '#935116',
         green: '#2ECC71',
+        fucsia_l: '#FD6E77',
         fucsia: '#F50656'
 
       },

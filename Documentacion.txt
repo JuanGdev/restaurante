@@ -2,7 +2,7 @@ Primero instalamos en la carpeta de RESTAURANTE (o sea de forma global)
 -> npm i -g @vue/cli
 Esto es para instalar VUE en nuestro proyecto
 En caso de presentar problemas primero debes de ejecutar
--> Set-ExecutionPolicy -Scope LocalMachine unrestricted
+-> Set-ExecutionPolicy -Scope LocalMachin e unrestricted
 
 Dentro de server ejecutamos
 -> npm init --yes

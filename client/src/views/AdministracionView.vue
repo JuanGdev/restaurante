@@ -6,12 +6,13 @@
       :items="mesas"
       :items-per-page="5"
       class="elevation-1"
+      
     >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Mesas</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="orange" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
+        <v-btn color="fucsia" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -41,7 +42,7 @@
       <v-toolbar flat>
         <v-toolbar-title>Meseros</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="yellow" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
+        <v-btn color="teal" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -63,7 +64,7 @@
       <v-toolbar flat>
         <v-toolbar-title>Productos</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="teal" dark @click="pro_dialog=true">Nuevo producto</v-btn>
+        <v-btn color="orange" dark @click="pro_dialog=true">Nuevo producto</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -76,7 +77,7 @@
 
     <v-dialog v-model="mesa_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="fucsia_l white--text">
           Nueva mesa
         </v-card-title>
         <v-card-text>
@@ -104,7 +105,7 @@
     
     <v-dialog v-model="mes_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="teal_l white--text">
           Nuevo mesero
         </v-card-title>
         <v-card-text>
@@ -138,7 +139,7 @@
 
      <v-dialog v-model="pro_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="orange_l white--text">
           Nuevo producto
         </v-card-title>
         <v-card-text>
@@ -189,40 +190,40 @@
       return{
         headers_mesa: [
           {
-            text: 'Número de mesa',
+            text: 'Número de mesa', class:"fucsia_l white--text",
             align: 'start',
             sortable: false,
             value: 'mesa_id',
           },
-          { text: 'Capacidad', value: 'mesa_capacidad' },
-          {text: 'Estatus', value: 'mesa_estatus'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Capacidad', value: 'mesa_capacidad', class:"fucsia_l white--text" },
+          {text: 'Estatus', value: 'mesa_estatus', class:"fucsia_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"fucsia_l white--text"}
         ],
         headers_mesero: [
           {
-            text: 'Identificador',
+            text: 'Identificador', class:"teal_l white--text",
             align: 'start',
             sortable: false,
             value: 'mes_id',
           },
-          { text: 'Nombre', value: 'mes_nombre' },
-          {text: 'Apellido paterno', value: 'mes_ap_pat'},
-          {text: 'Apellido materno', value: 'mes_ap_mat'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Nombre', value: 'mes_nombre', class:"teal_l white--text" },
+          {text: 'Apellido paterno', value: 'mes_ap_pat', class:"teal_l white--text"},
+          {text: 'Apellido materno', value: 'mes_ap_mat', class:"teal_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"teal_l white--text"}
         ],
         headers_producto: [
           {
-            text: 'Identificador',
+            text: 'Identificador', class:"orange_l white--text",
             align: 'start',
             sortable: false,
             value: 'pro_id',
           },
-          { text: 'Nombre', value: 'pro_nombre' },
-          {text: 'Descripción', value: 'pro_desc'},
-          {text: 'Costo', value: 'pro_costo'},
-          {text: 'Comida/Bebida', value: 'pro_cob'},
-          {text: 'Categoría', value: 'pro_categoria'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Nombre', value: 'pro_nombre', class:"orange_l white--text" },
+          {text: 'Descripción', value: 'pro_desc', class:"orange_l white--text"},
+          {text: 'Costo', value: 'pro_costo', class:"orange_l white--text"},
+          {text: 'Comida/Bebida', value: 'pro_cob', class:"orange_l white--text"},
+          {text: 'Categoría', value: 'pro_categoria', class:"orange_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"orange_l white--text"}
         ],
         mesas: [],
         meseros: [],
@@ -333,7 +334,7 @@
       //--------------------Colores------------------------
       getColor (mesa_estatus) {
         if (mesa_estatus=='Libre') return 'green'
-        else if (mesa_estatus=='Ocupada') return 'fucsia'
+        else if (mesa_estatus=='Ocupada') return 'error'
       }
     }
   }
