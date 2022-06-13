@@ -5,7 +5,7 @@ USE restaurante_db;
 CREATE TABLE IF NOT EXISTS mesa(
 	mesa_id TINYINT NOT NULL AUTO_INCREMENT, 
     mesa_capacidad TINYINT NOT NULL,
-    mesa_estatus BOOLEAN NOT NULL,
+    mesa_estatus ENUM('Ocupada','Libre'),
     
     PRIMARY KEY (mesa_id),			#Utilizaremos una llave artificial dado que el manejo por numero de mesas será más eficiente e intuitivo para el sistema
     INDEX (mesa_capacidad),
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS mesero(
 CREATE TABLE IF NOT EXISTS producto(
 	pro_id INT NOT NULL AUTO_INCREMENT,
     pro_nombre VARCHAR(50) NOT NULL,
-    pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de que es lo que lleva',
+    pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
     pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
@@ -79,3 +79,31 @@ CREATE TABLE IF NOT EXISTS detalle(
 		ON DELETE CASCADE		#Al eliminar productos de la base no es necesario guardar los detalles de la orden en donde se ordenaron, ya que las cuentas que están pagadas no son afectadas, sólo las de estado abierto o cerrado
         ON UPDATE CASCADE		#El actualizar los datos de un producto no afecta a esta tabla de manera negativa
 );
+<<<<<<< HEAD
+=======
+
+# Inserciones inciales de datos para la base de datos
+INSERT INTO mesa (mesa_capacidad,mesa_estatus) VALUES
+('20', 'Libre'),
+('17', 'Libre'),
+('15', 'Libre'),
+('13', 'Libre'),
+('11','Libre'),
+('9', 'Libre'),
+('7', 'Libre'),
+('5', 'Libre'),
+('3', 'Libre'),
+('1', 'Ocupada');
+
+INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
+VALUES ('Samantha','Squash','Pérez'),
+('Fernanda','Colunga','Ramírez'),
+('Solaire','Aguilar','Ávila'),
+('Hornet','Amador','Gómez'),
+('Pedro','Pérez','Prado'),
+('Idalid','Segoviano','Gudiño'),
+('Natalia','Hernández','González'),
+('Naomi','Gutiérrez','Arango'),
+('Pablo','Cinefilio','Haceres'),
+('Jair','Chávez','Playas');
+>>>>>>> 10ed2fccc7938e3ac970c535d6b119b11089e8d7

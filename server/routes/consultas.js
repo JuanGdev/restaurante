@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router(); // Objeto que me ayuda a 
 const connection = require('../connection');
 
-
 // Funcion asincrona
 router.get('/consulta1', async (req, res) => {
     try{
