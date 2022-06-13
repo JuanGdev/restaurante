@@ -1,5 +1,39 @@
 {
-  "dependencies": {
-    "mysql": "^2.18.1"
-  }
+
+  "name": "restaurante",
+
+  "version": "1.0.0",
+
+  "description": "Proyecto final para la materia de Sistemas de Administración de Datos. Elaboración de un sistema para un restaurante, base de datos y página web.",
+
+  "main": "app.js",
+
+  "scripts": {
+
+    "test": "echo \"Error: no test specified\" && exit 1"
+
+  },
+
+  "repository": {
+
+    "type": "git",
+
+    "url": "git+https://github.com/JuanGdev/restaurante.git"
+
+  },
+
+  "keywords": [],
+
+  "author": "",
+
+  "license": "ISC",
+
+  "bugs": {
+
+    "url": "https://github.com/JuanGdev/restaurante/issues"
+
+  },
+
+  "homepage": "https://github.com/JuanGdev/restaurante#readme"
+
 }
