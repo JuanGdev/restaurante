@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mes_id TINYINT,
     ord_estado ENUM ('abierta','cerrada','pagada') NOT NULL,
     ord_fecha DATETIME NOT NULL,
-    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los prooductos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
+    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
     ord_tot INT NOT NULL,
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
@@ -81,26 +81,33 @@ CREATE TABLE IF NOT EXISTS detalle(
 );
 
 # Inserciones inciales de datos para la base de datos
-INSERT INTO mesa (mesa_capacidad,mesa_estatus) VALUES
-('20', 'Libre'),
-('17', 'Libre'),
-('15', 'Libre'),
-('13', 'Libre'),
-('11','Libre'),
-('9', 'Libre'),
-('7', 'Libre'),
-('5', 'Libre'),
-('3', 'Libre'),
-('1', 'Ocupada');
+INSERT INTO mesa (mesa_capacidad,mesa_estatus) 
+VALUES	('20', 'Libre'),
+		('17', 'Libre'),
+		('15', 'Libre'),
+		('13', 'Libre'),
+		('11','Libre'),
+		('9', 'Libre'),
+		('7', 'Libre'),
+		('5', 'Libre'),
+		('3', 'Libre'),
+		('1', 'Ocupada');
 
 INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
-VALUES ('Samantha','Squash','Pérez'),
-('Fernanda','Colunga','Ramírez'),
-('Solaire','Aguilar','Ávila'),
-('Hornet','Amador','Gómez'),
-('Pedro','Pérez','Prado'),
-('Idalid','Segoviano','Gudiño'),
-('Natalia','Hernández','González'),
-('Naomi','Gutiérrez','Arango'),
-('Pablo','Cinefilio','Haceres'),
-('Jair','Chávez','Playas');
+	VALUES	('Samantha','Squash','Pérez'),
+			('Fernanda','Colunga','Ramírez'),
+			('Solaire','Aguilar','Ávila'),
+			('Hornet','Amador','Gómez'),
+			('Pedro','Pérez','Prado'),
+			('Idalid','Segoviano','Gudiño'),
+			('Natalia','Hernández','González'),
+			('Naomi','Gutiérrez','Arango'),
+			('Pablo','Cinefilio','Haceres'),
+			('Jair','Chávez','Playas');
+
+INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
+	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
+			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','postre'),
+            ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
+	
+# La tabla de órdenes y detalles se llena desde nuestra aplicación web
