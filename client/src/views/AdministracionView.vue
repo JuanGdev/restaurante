@@ -190,40 +190,40 @@
       return{
         headers_mesa: [
           {
-            text: 'Número de mesa',
+            text: 'Número de mesa', class:"fucsia_l white--text",
             align: 'start',
             sortable: false,
             value: 'mesa_id',
           },
-          { text: 'Capacidad', value: 'mesa_capacidad' },
-          {text: 'Estatus', value: 'mesa_estatus'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Capacidad', value: 'mesa_capacidad', class:"fucsia_l white--text" },
+          {text: 'Estatus', value: 'mesa_estatus', class:"fucsia_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"fucsia_l white--text"}
         ],
         headers_mesero: [
           {
-            text: 'Identificador',
+            text: 'Identificador', class:"teal_l white--text",
             align: 'start',
             sortable: false,
             value: 'mes_id',
           },
-          { text: 'Nombre', value: 'mes_nombre' },
-          {text: 'Apellido paterno', value: 'mes_ap_pat'},
-          {text: 'Apellido materno', value: 'mes_ap_mat'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Nombre', value: 'mes_nombre', class:"teal_l white--text" },
+          {text: 'Apellido paterno', value: 'mes_ap_pat', class:"teal_l white--text"},
+          {text: 'Apellido materno', value: 'mes_ap_mat', class:"teal_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"teal_l white--text"}
         ],
         headers_producto: [
           {
-            text: 'Identificador',
+            text: 'Identificador', class:"orange_l white--text",
             align: 'start',
             sortable: false,
             value: 'pro_id',
           },
-          { text: 'Nombre', value: 'pro_nombre' },
-          {text: 'Descripción', value: 'pro_desc'},
-          {text: 'Costo', value: 'pro_costo'},
-          {text: 'Comida/Bebida', value: 'pro_cob'},
-          {text: 'Categoría', value: 'pro_categoria'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Nombre', value: 'pro_nombre', class:"orange_l white--text" },
+          {text: 'Descripción', value: 'pro_desc', class:"orange_l white--text"},
+          {text: 'Costo', value: 'pro_costo', class:"orange_l white--text"},
+          {text: 'Comida/Bebida', value: 'pro_cob', class:"orange_l white--text"},
+          {text: 'Categoría', value: 'pro_categoria', class:"orange_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"orange_l white--text"}
         ],
         mesas: [],
         meseros: [],
