@@ -17,6 +17,8 @@ app.use('/mesas', require('./routes/mesas'));
 app.use('/meseros', require('./routes/meseros'));
 app.use('/ordenes', require('./routes/ordenes'));
 app.use('/productos', require('./routes/productos'));
+app.use('/consultas', require('./routes/consultas'));
+
 
 app.listen(3000, function(){            //Con esta instrucción definimos cual puerto
     console.log('API ejecutandose');  //es el que estará escuchando y el mensaje en
