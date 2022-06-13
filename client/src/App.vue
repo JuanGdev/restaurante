@@ -1,55 +1,108 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>fas fa-external-link-alt</v-icon>
-      </v-btn>
-    </v-app-bar>
-
     <v-main>
-      <router-view/>
+      <v-row>
+        <v-container col>
+          <v-navigation-drawer permanent>
+            <v-container>
+              <v-card flat>
+                <v-card-title>
+                  <v-icon 
+                    large
+                    color="cof"
+                    left
+                  >
+                    fas fa-hat-cowboy-side
+                  </v-icon>
+                  <span class="yellow--text">
+                    LA PATRONA
+                  </span>
+                </v-card-title>
+                <v-card-text>
+                  <v-list shaped>
+                    <v-list-item-group
+                      v-model="selectedItem"
+                      color="orange"
+                    >
+                      <v-list-item 
+                        to="/"
+                      >
+                        <v-list-item-icon>
+                          <v-icon small>
+                            fas fa-utensils
+                          </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Mesas
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item 
+                        to="/ordenes"
+                      >
+                        <v-list-item-icon>
+                          <v-icon small>
+                            fas fa-clipboard
+                          </v-icon>
+                        </v-list-item-icon>  
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Ordenes
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item 
+                        to="/administracion"
+                      >
+                        <v-list-item-icon>
+                          <v-icon small>
+                            fas fa-cogs
+                          </v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Admin
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item 
+                        to="consultas"
+                      >
+                        <v-list-item-action>
+                          <v-icon small>
+                            fas fa-search
+                          </v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Consultas
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list-item-group>
+                  </v-list>
+                  <v-img
+                    src="@/assets/menu.png">
+                  </v-img>
+                </v-card-text>
+              </v-card>
+            </v-container>
+          </v-navigation-drawer>
+        </v-container>
+        <v-container cols="12">
+          <router-view/>
+        </v-container>
+      </v-row>
     </v-main>
   </v-app>
 </template>
 
 <script>
-
-export default {
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
-};
+  export default {
+    name: 'App',
+    data: () => ({
+      selectedItem: null
+    })
+  }
 </script>

@@ -14,7 +14,6 @@ connection.getConnection(
     (err, conn) => {
         if(err){
             console.log('DB no conectada');
-            console.log(err);
         }
         if (conn) {
             console.log('DB conectada');

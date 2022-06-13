@@ -28,13 +28,13 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
-    pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)',
-    pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
+    pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(Comida o Bebida)',
+    pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco'),
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
     INDEX (pro_nombre),
-    INDEX ( pro_categoria)
+    INDEX (pro_categoria)
 );
 
 
@@ -42,10 +42,10 @@ CREATE TABLE IF NOT EXISTS orden(
 	ord_id INT NOT NULL AUTO_INCREMENT,
     ord_mesa_id TINYINT,
     ord_mes_id TINYINT,
-    ord_estado ENUM ('abierta','cerrada','pagada') NOT NULL,
+    ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
     ord_fecha DATETIME NOT NULL,
-    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
-    ord_tot INT NOT NULL,
+    ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
+    ord_tot INT,
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
     INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
@@ -94,20 +94,21 @@ VALUES	('20', 'Libre'),
 		('1', 'Ocupada');
 
 INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
-	VALUES	('Samantha','Squash','Pérez'),
-			('Fernanda','Colunga','Ramírez'),
-			('Solaire','Aguilar','Ávila'),
-			('Hornet','Amador','Gómez'),
-			('Pedro','Pérez','Prado'),
-			('Idalid','Segoviano','Gudiño'),
-			('Natalia','Hernández','González'),
-			('Naomi','Gutiérrez','Arango'),
-			('Pablo','Cinefilio','Haceres'),
-			('Jair','Chávez','Playas');
+	VALUES ('Samantha','Squash','Pérez'),
+	('Fernanda','Colunga','Ramírez'),
+	('Solaire','Aguilar','Ávila'),
+	('Hornet','Amador','Gómez'),
+	('Pedro','Pérez','Prado'),
+	('Idalid','Segoviano','Gudiño'),
+	('Natalia','Hernández','González'),
+	('Naomi','Gutiérrez','Arango'),
+	('Pablo','Cinefilio','Haceres'),
+	('Jair','Chávez','Playas');
 
 INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
-	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
-			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','postre'),
-            ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
-	
-# La tabla de órdenes y detalles se llena desde nuestra aplicación web
+	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','Comida','Garnacha'),
+			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Postre'),
+            ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'Comida','Carne');
+ 
+INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
+	VALUES	('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65);
