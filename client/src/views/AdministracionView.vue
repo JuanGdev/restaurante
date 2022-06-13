@@ -5,14 +5,14 @@
       :headers="headers_mesa" 
       :items="mesas"
       :items-per-page="5"
-      class="elevation-1"
+      class="elevation-7"
       
     >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Mesas</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="fucsia" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
+        <v-btn color="orange" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -36,13 +36,13 @@
       :headers="headers_mesero" 
       :items="meseros"
       :items-per-page="5"
-      class="elevation-1"
+      class="elevation-7"
     >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Meseros</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="teal" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
+        <v-btn color="yellow" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -58,13 +58,13 @@
       :headers="headers_producto" 
       :items="productos"
       :items-per-page="5"
-      class="elevation-1"
+      class="elevation-7"
     >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Productos</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="orange" dark @click="pro_dialog=true">Nuevo producto</v-btn>
+        <v-btn color="teal" dark @click="pro_dialog=true">Nuevo producto</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -77,7 +77,7 @@
 
     <v-dialog v-model="mesa_dialog" max-width = "500px">
       <v-card>
-        <v-card-title class="fucsia_l white--text">
+        <v-card-title class="orange_l white--text">
           Nueva mesa
         </v-card-title>
         <v-card-text>
@@ -105,7 +105,7 @@
     
     <v-dialog v-model="mes_dialog" max-width = "500px">
       <v-card>
-        <v-card-title class="teal_l white--text">
+        <v-card-title class="yellow_l white--text">
           Nuevo mesero
         </v-card-title>
         <v-card-text>
@@ -139,7 +139,7 @@
 
      <v-dialog v-model="pro_dialog" max-width = "500px">
       <v-card>
-        <v-card-title class="orange_l white--text">
+        <v-card-title class="teal_l white--text">
           Nuevo producto
         </v-card-title>
         <v-card-text>
@@ -190,40 +190,40 @@
       return{
         headers_mesa: [
           {
-            text: 'Número de mesa', class:"fucsia_l white--text",
+            text: 'Número de mesa', class:"orange_l white--text",
             align: 'start',
             sortable: false,
             value: 'mesa_id',
           },
-          { text: 'Capacidad', value: 'mesa_capacidad', class:"fucsia_l white--text" },
-          {text: 'Estatus', value: 'mesa_estatus', class:"fucsia_l white--text"},
-          {text: 'Acciones', value: 'actions', class:"fucsia_l white--text"}
+          { text: 'Capacidad', value: 'mesa_capacidad', class:"orange_l white--text" },
+          {text: 'Estatus', value: 'mesa_estatus', class:"orange_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"orange_l white--text"}
         ],
         headers_mesero: [
           {
-            text: 'Identificador', class:"teal_l white--text",
+            text: 'Identificador', class:"yellow_l white--text",
             align: 'start',
             sortable: false,
             value: 'mes_id',
           },
-          { text: 'Nombre', value: 'mes_nombre', class:"teal_l white--text" },
-          {text: 'Apellido paterno', value: 'mes_ap_pat', class:"teal_l white--text"},
-          {text: 'Apellido materno', value: 'mes_ap_mat', class:"teal_l white--text"},
-          {text: 'Acciones', value: 'actions', class:"teal_l white--text"}
+          { text: 'Nombre', value: 'mes_nombre', class:"yellow_l white--text" },
+          {text: 'Apellido paterno', value: 'mes_ap_pat', class:"yellow_l white--text"},
+          {text: 'Apellido materno', value: 'mes_ap_mat', class:"yellow_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"yellow_l white--text"}
         ],
         headers_producto: [
           {
-            text: 'Identificador', class:"orange_l white--text",
+            text: 'Identificador', class:"teal_l white--text",
             align: 'start',
             sortable: false,
             value: 'pro_id',
           },
-          { text: 'Nombre', value: 'pro_nombre', class:"orange_l white--text" },
-          {text: 'Descripción', value: 'pro_desc', class:"orange_l white--text"},
-          {text: 'Costo', value: 'pro_costo', class:"orange_l white--text"},
-          {text: 'Comida/Bebida', value: 'pro_cob', class:"orange_l white--text"},
-          {text: 'Categoría', value: 'pro_categoria', class:"orange_l white--text"},
-          {text: 'Acciones', value: 'actions', class:"orange_l white--text"}
+          { text: 'Nombre', value: 'pro_nombre', class:"teal_l white--text" },
+          {text: 'Descripción', value: 'pro_desc', class:"teal_l white--text"},
+          {text: 'Costo', value: 'pro_costo', class:"teal_l white--text"},
+          {text: 'Comida/Bebida', value: 'pro_cob', class:"teal_l white--text"},
+          {text: 'Categoría', value: 'pro_categoria', class:"teal_l white--text"},
+          {text: 'Acciones', value: 'actions', class:"teal_l white--text"}
         ],
         mesas: [],
         meseros: [],
