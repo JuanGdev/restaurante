@@ -6,12 +6,13 @@
       :items="mesas"
       :items-per-page="5"
       class="elevation-1"
+      
     >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Mesas</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="orange" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
+        <v-btn color="fucsia" dark @click="mesa_dialog=true">Nueva mesa</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -41,7 +42,7 @@
       <v-toolbar flat>
         <v-toolbar-title>Meseros</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="yellow" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
+        <v-btn color="teal" dark @click="mes_dialog=true">Nuevo mesero</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -63,7 +64,7 @@
       <v-toolbar flat>
         <v-toolbar-title>Productos</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="teal" dark @click="pro_dialog=true">Nuevo producto</v-btn>
+        <v-btn color="orange" dark @click="pro_dialog=true">Nuevo producto</v-btn>
       </v-toolbar>
     </template>
       <template v-slot:[`item.actions`]="{item}">
@@ -76,7 +77,7 @@
 
     <v-dialog v-model="mesa_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="fucsia_l white--text">
           Nueva mesa
         </v-card-title>
         <v-card-text>
@@ -104,7 +105,7 @@
     
     <v-dialog v-model="mes_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="teal_l white--text">
           Nuevo mesero
         </v-card-title>
         <v-card-text>
@@ -138,7 +139,7 @@
 
      <v-dialog v-model="pro_dialog" max-width = "500px">
       <v-card>
-        <v-card-title>
+        <v-card-title class="orange_l white--text">
           Nuevo producto
         </v-card-title>
         <v-card-text>
@@ -333,7 +334,7 @@
       //--------------------Colores------------------------
       getColor (mesa_estatus) {
         if (mesa_estatus=='Libre') return 'green'
-        else if (mesa_estatus=='Ocupada') return 'fucsia'
+        else if (mesa_estatus=='Ocupada') return 'error'
       }
     }
   }
