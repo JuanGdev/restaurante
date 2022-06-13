@@ -1,3 +1,4 @@
+DROP SCHEMA restaurante_db;
 CREATE DATABASE IF NOT EXISTS restaurante_db;
 
 USE restaurante_db;
@@ -34,7 +35,7 @@ CREATE TABLE IF NOT EXISTS producto(
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
     INDEX (pro_nombre),
-    INDEX ( pro_categoria)
+    INDEX (pro_categoria)
 );
 
 
@@ -109,5 +110,7 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','postre'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
-	
+ 
+
+
 
