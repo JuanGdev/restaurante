@@ -13,6 +13,9 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
+    <template v-slot:[`item.actions`]="{item}">
+    <v-btn color="success" @click="guardar_mesero()">Agregar</v-btn>
+      </template>
     </v-data-table>
   </v-container> 
   <v-container cols = "3">
@@ -24,7 +27,7 @@
     >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Órdenes</v-toolbar-title>
+        <v-toolbar-title>Nueva orden</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
@@ -32,6 +35,7 @@
   </v-container>
     </v-row>
 </template>
+
 
 <script>
     export default {
@@ -68,6 +72,15 @@
         ],
         productos: [],
         ordenes: [],
+
+        nueva_orden:{
+          ord_mesa_id: '',
+          ord_mes_id: '',
+          ord_estado: '',
+          ord_fecha: '',
+          ord_productos: '',
+          ord_tot: ''
+        }
       }
     },
     created(){
@@ -84,7 +97,12 @@
             async llenar_ordenes(){
               const api_data = await this.axios.get('ordenes/todas_las_ordenes');
               this.ordenes = api_data.data;
-            }
+            },
+              async guardar_producto(){
+        await this.axios.post('productos/nuevo_producto', this.nuevo_producto);
+        this.llenar_productos();
+        this.cancelar();
+      }
     }
     }
 </script>

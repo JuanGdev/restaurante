@@ -1,4 +1,3 @@
-DROP SCHEMA restaurante_db;
 CREATE DATABASE IF NOT EXISTS restaurante_db;
 
 USE restaurante_db;
@@ -45,8 +44,8 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mes_id TINYINT,
     ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
     ord_fecha DATETIME NOT NULL,
-    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
-    ord_tot INT NOT NULL,
+    ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
+    ord_tot INT,
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
     INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
@@ -111,10 +110,5 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Postre'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'Comida','Carne');
  
-
-
-
-	
-# La tabla de órdenes y detalles se llena desde nuestra aplicación web
 INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
 	VALUES	('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65);
