@@ -28,13 +28,12 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
-<<<<<<< HEAD
+
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
-=======
+
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(Comida o Bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco'),
->>>>>>> 5b75f3d514ae805f37a5871d65c4cd255e8b15a5
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
@@ -122,3 +121,18 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
 	VALUES	#('3', '1',"Sin verduras"),
 		    ('4', '2',"");
+<<<<<<< HEAD
+=======
+
+SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
+	FROM orden AS o
+	INNER JOIN detalle as d
+		ON o.ord_id = d.det_ord_id
+	INNER JOIN producto as p
+		ON d.det_pro_id = p.pro_id
+	WHERE o.ord_id=3;
+
+SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
+	FROM orden AS o, detalle AS d, producto AS p 
+    WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
+>>>>>>> afc7f1995aba3ea24074a0459f0e1f0ba2b83387

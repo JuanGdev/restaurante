@@ -50,11 +50,14 @@
                 </v-card-title>
                 <v-card-text>
                     <v-container>
-                        <span> Orden: {{ datos_cuenta.ord_id }}</span>
-                        <span> Mesa: {{ datos_cuenta.ord_mesa_id }}</span>
-                        <span> Mesero: {{ datos_cuenta.ord_mes_id }}</span>
-                        <span> Fecha: {{ datos_cuenta.ord_fecha }}</span>
-                        <span> Total: {{ datos_cuenta.ord_total }}</span>
+
+                        <label > Orden: {{ datos_cuenta.ord_id }}  </label>
+                        <v-spacer></v-spacer>
+                        <label> Fecha: {{ datos_cuenta.ord_fecha }}  </label>
+                        <v-spacer></v-spacer>
+                        <label> Mesa: {{ datos_cuenta.ord_mesa_id }}  </label>
+                        <label> Mesero: {{ datos_cuenta.ord_mes_id }}  </label>
+                        
                         <v-container>
                             <v-data-table
                                 :headers="headers_cuenta" 
@@ -64,7 +67,7 @@
                             >
                             </v-data-table>
                         </v-container>
-                        
+                        <span style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </span>
                         
                     </v-container>
                 </v-card-text>
@@ -130,8 +133,6 @@
                     {text: 'Costo', value: 'Costo', sortable: false}
                 ],
 
-
-
                 ordenes: [],
                 cuenta: [],
 
@@ -172,9 +173,14 @@
                 this.detalles_dialog=false;
             },
 
+            async libera_mesa(){
+                await this.axios.put('mesas/liberamesa', this.datos_cuenta);
+            },
+
             async actualiza_estado(){
                 await this.axios.put('ordenes/estadopagado', this.datos_cuenta);
                 this.llenar_ordenes();
+                this.libera_mesa();
                 this.cancelar();
             },
 
@@ -194,29 +200,25 @@
             },*/
 
             async openDialog(item){
-                this.orden_dialog=true,
+                if(item.ord_estado!="Pagada"){
+                    this.orden_dialog=true;
 
-                this.datos_cuenta.ord_id=item.ord_id,
-                this.datos_cuenta.ord_mesa_id=item.ord_mesa_id,
-                this.datos_cuenta.ord_mes_id=item.ord_mes_id,
-                this.datos_cuenta.ord_fecha=item.ord_fecha,
-                this.datos_cuenta.ord_total=item.ord_total,
+                    this.datos_cuenta.ord_id=item.ord_id;
+                    this.datos_cuenta.ord_mesa_id=item.ord_mesa_id;
+                    this.datos_cuenta.ord_mes_id=item.ord_mes_id;
+                    this.datos_cuenta.ord_fecha=item.ord_fecha;
+                    this.datos_cuenta.ord_total=item.ord_total;
 
-                this.llenar_cuenta();
+                    this.llenar_cuenta();
+                }
+                else{
+                    this.cancelar();
+                }
             },
 
             async llenar_cuenta(){
                 const api_data = await this.axios.get('detalles/detalles_de_una_orden', this.datos_cuenta);
                 this.cuenta = api_data.data;
-            },
-
-            verificaestado(item){
-                if(item.ord_estado!="Pagada"){
-                    orden_dialog=true;
-                }
-                else{
-                    this.cancelar();
-                }
             },
 
             getColor (ord_estado) {
