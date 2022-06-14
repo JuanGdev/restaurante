@@ -14,26 +14,28 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{item}">
-      <v-btn color="success" @click="guardar_mesero()">Agregar</v-btn>
+      <v-btn color="success" @click="producto_dialog=true">Agregar</v-btn>
       </template>
       </v-data-table>
+          <v-dialog v-model="producto_dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          Detalle del producto
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+              <input v-model="detalles.det_comentario" placeholder="Agrega alguna especificación para el producto"/>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success"  @click="guardar()">Añadir</v-btn>
+          <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container> 
-
-<v-container cols = "3">
-  <v-data-table
-    :headers="headers_ordenes" 
-    :items="ordenes"
-    :items-per-page="5"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>Nueva orden</v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-  </v-data-table>
-</v-container>
 </v-row>
 </template>
 
@@ -72,16 +74,12 @@
           {text: 'Total', value: 'ord_tot'}
         ],
         productos: [],
-        ordenes: [],
-        nl_dialog: false,
+        producto_dialog: false,
 
-        nueva_orden:{
-          ord_mesa_id: '',
-          ord_mes_id: '',
-          ord_estado: '',
-          ord_fecha: '',
-          ord_productos: '',
-          ord_tot: ''
+        detalles:{
+          det_pro_id: '',
+          det_ord_id: '',
+          det_comentario: ''
         }
       }
     },
@@ -92,19 +90,16 @@
     methods:{ //instrucciones
             async llenar_productos(){
         const api_data = await this.axios.get('productos/todos_los_productos');
-        //wait espera a que recupere los datos
-        //la funcion debe ser asincrona
         this.productos = api_data.data;
       },
-            async llenar_ordenes(){
-              const api_data = await this.axios.get('ordenes/todas_las_ordenes');
-              this.ordenes = api_data.data;
-            },
-              async guardar_producto(){
-        await this.axios.post('productos/nuevo_producto', this.nuevo_producto);
-        this.llenar_productos();
+              async guardar(){
+        await this.axios.post('detalles/agregar_detalles', this.detalles);
         this.cancelar();
-      }
+      },
+              cancelar(){
+        this.detalles = {};
+        this.producto_dialog = false;
+      },
     }
     }
 </script>

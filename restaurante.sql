@@ -121,8 +121,6 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
 	VALUES	#('3', '1',"Sin verduras"),
 		    ('4', '2',"");
-<<<<<<< HEAD
-=======
 
 SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
 	FROM orden AS o
@@ -135,7 +133,6 @@ SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_
 SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
 	FROM orden AS o, detalle AS d, producto AS p 
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
->>>>>>> afc7f1995aba3ea24074a0459f0e1f0ba2b83387
 
+INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario) VALUES (,2,'Sin cebolla');
 
-SELECT MAX(ord_id) FROM orden;
