@@ -14,26 +14,34 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{item}">
-      <v-btn color="success" @click="guardar_mesero()">Agregar</v-btn>
+      <v-btn color="success" @click="dialog_producto=true">Agregar</v-btn>
       </template>
       </v-data-table>
+          <v-dialog v-model="dialog_producto" max-width="500px">
+      <v-card>
+        <v-card-title>
+          Agregar producto
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+                <v-select
+                :items="meseros"
+                v-model="nueva_orden.ord_mes_id"
+                label="Mesero">                    
+                </v-select>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success"  @click="guardar()">Asignar</v-btn>
+          <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container> 
-
-<v-container cols = "3">
-  <v-data-table
-    :headers="headers_ordenes" 
-    :items="ordenes"
-    :items-per-page="5"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>Nueva orden</v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-  </v-data-table>
-</v-container>
 </v-row>
 </template>
 
@@ -73,7 +81,7 @@
         ],
         productos: [],
         ordenes: [],
-        nl_dialog: false,
+        dialog_producto: false,
 
         nueva_orden:{
           ord_mesa_id: '',
