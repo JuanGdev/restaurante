@@ -18,7 +18,7 @@
             dark
             rounded
             color="teal_l"
-            @click="mesa_dialog=true, definirMesa(item)"
+            @click="definirMesa(item)"
           >
             Ocupar mesa
           </v-btn>
@@ -110,7 +110,13 @@
         this.mesa_dialog = false;
       },
       definirMesa(item){
+        if(item.mesa_estatus!="Ocupada"){
+          this.mesa_dialog=true;
           this.nueva_orden.ord_mesa_id = item.mesa_id;
+        }
+        else{
+          this.cancelar();
+        }
       },
 
       async guardar(){
