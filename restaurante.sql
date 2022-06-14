@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mesa_id TINYINT,
     ord_mes_id TINYINT,
     ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
-    ord_fecha DATETIME NOT NULL,
+    ord_fecha DATETIME,
     ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
     ord_tot INT,
     
@@ -121,7 +121,3 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 	VALUES	(1, 1,'cerrada','2022-06-13', "Pambazo de chorizo con papas", 65),
 			(2, 3, 'abierta', '2022-06-14', "Tacos encebollados de tripa", 650),
             (5, 2, 'abierta', '2022-05-13', "Taco tripa", 250);
-
-
-
-
