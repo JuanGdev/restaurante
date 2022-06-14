@@ -93,8 +93,7 @@
         this.productos = api_data.data;
       },
               async guardar(){
-        // await this.axios.post('productos/nuevo_producto', this.nuevo_producto);
-        // this.llenar_productos();
+        await this.axios.post('detalles/agregar_detalles', this.detalles);
         this.cancelar();
       },
               cancelar(){
