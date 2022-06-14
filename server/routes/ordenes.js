@@ -47,9 +47,9 @@ router.delete('/eliminar_orden', async (req,res) => {
     return;
 });
 
-router.put('/estadopagado', async (req,res) => {
+router.put('/estadopagado/:ord_id', async (req,res) => {
     try{
-        const ord_id = req.body.ord_id;
+        const ord_id = req.params.ord_id;
         const query = 'UPDATE orden SET ord_estado = "Pagada" WHERE ord_id = ?';
         console.log(ord_id);
         const result = await connection.query(query, [ord_id]);

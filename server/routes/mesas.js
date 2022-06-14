@@ -33,9 +33,9 @@ router.put('/estado_ocupada', async (req,res) => {
     }
     return;
 });
-router.delete('/eliminar_mesa', async (req,res)=>{
+router.delete('/eliminar_mesa/:mesa_id', async (req,res)=>{
     try{
-        const mesa_id = req.body.mesa_id;
+        const mesa_id = req.params.mesa_id;
         const query = 'DELETE FROM mesa WHERE mesa_id = ?';
         const result = await connection.query(query, [mesa_id]);
         res.json('ok');

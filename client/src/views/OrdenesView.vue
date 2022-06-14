@@ -182,14 +182,11 @@
                 this.detalles_dialog=false;
             },
 
-            async libera_mesa(){
-                await this.axios.put('mesas/liberamesa', this.datos_cuenta);
-            },
-
             async actualiza_estado(){
-                await this.axios.put('ordenes/estadopagado', this.datos_cuenta);
+                await this.axios.put('mesas/liberamesa/'+this.datos_cuenta.ord_mesa_id.toString());
+                await this.axios.put('ordenes/estadopagado/'+this.datos_cuenta.ord_id.toString());
+ 
                 this.llenar_ordenes();
-                this.libera_mesa();
                 this.cancelar();
             },
 
@@ -226,7 +223,7 @@
             },
 
             async llenar_cuenta(){
-                const api_data = await this.axios.get('detalles/detalles_de_una_orden', this.datos_cuenta);
+                const api_data = await this.axios.get('detalles/detalles_de_una_orden/'+this.datos_cuenta.ord_id.toString());
                 this.cuenta = api_data.data;
             },
 
