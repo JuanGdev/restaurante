@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers_mesa" 
       :items="mesas"
-      :items-per-page="5"
+      :items-per-page="10"
       class="elevation-7"
     >
       <template v-slot:top>
@@ -50,7 +50,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" @click="guardar()">Asignar</v-btn>
+          <v-btn color="success" to="/menu" @click="guardar()">Asignar</v-btn>
           <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -112,9 +112,9 @@
         this.nueva_orden.ord_mesa_id = item.mesa_id;
       },
       async guardar(){
+        await this.axios.put('/mesas/estado_ocupada', this.nueva_orden);
         await this.axios.post('/ordenes/nueva_orden', this.nueva_orden);
         this.cancelar();
-        // await this.axios.post('/mesas/cambiar_estado');
       },
       //--------------------Colores------------------------
       getColor (mesa_estatus) {
