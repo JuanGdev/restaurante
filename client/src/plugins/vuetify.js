@@ -22,6 +22,7 @@ export default new Vuetify({
         orange: '#FD9401',
         orange_l: '#FEC065',
         yellow: '#FFC404',
+        yellow_l: '#FFD858',
         teal: '#008080',
         teal_l: '#68CAB7',
         cof: '#935116',

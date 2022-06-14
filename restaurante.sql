@@ -1,4 +1,3 @@
-DROP SCHEMA restaurante_db;
 CREATE DATABASE IF NOT EXISTS restaurante_db;
 
 USE restaurante_db;
@@ -29,8 +28,13 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
+<<<<<<< HEAD
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
+=======
+    pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(Comida o Bebida)',
+    pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco'),
+>>>>>>> 5b75f3d514ae805f37a5871d65c4cd255e8b15a5
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
@@ -45,8 +49,8 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mes_id TINYINT,
     ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
     ord_fecha DATETIME NOT NULL,
-    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
-    ord_tot INT NOT NULL,
+    ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
+    ord_tot INT,
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
     INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
