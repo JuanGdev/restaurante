@@ -18,21 +18,21 @@ router.get("/todas_las_mesas", async (req, res) => {
     }
     return;
 });
-// router.put('/cambiar_estado', async (req,res) => {
-//     try{
-//         const ord_id = req.body.ord_id;
-//         const query = 'UPDATE orden SET ord_estado = "Cerrada" WHERE ord_id = ?';
-//         console.log(ord_id);
-//         await connection.query(query, [ord_id]);
-//         res.json(result);
-//     }
-//     catch(error){
-//         res.json ({
-//             error:error
-//         });
-//     }
-//     return;
-// });
+router.put('/estado_ocupada', async (req,res) => {
+    try{
+        const body = req.body
+        const query = 'UPDATE mesa SET mesa_estatus = "Ocupada" WHERE mesa_id = ?';
+        const result = await connection.query(query, [body.ord_mesa_id]);
+        console.log(result)
+        res.json(result);
+    }
+    catch(error){
+        res.json ({
+            error:error
+        });
+    }
+    return;
+});
 router.delete('/eliminar_mesa', async (req,res)=>{
     try{
         const mesa_id = req.body.mesa_id;

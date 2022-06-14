@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_mesa_id TINYINT,
     ord_mes_id TINYINT,
     ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
-    ord_fecha DATETIME NOT NULL,
+    ord_fecha DATETIME,
     ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
     ord_tot INT,
     
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS orden(
 CREATE TABLE IF NOT EXISTS detalle(
 	det_ord_id INT,
     det_pro_id INT,
-    det_comentario VARCHAR(80) NOT NULL,
+    det_comentario VARCHAR(300) NOT NULL,
     
     CONSTRAINT fk_orden_detalle
     FOREIGN KEY (det_ord_id)
@@ -114,8 +114,6 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
  
-
-# La tabla de órdenes y detalles se llena desde nuestra aplicación web
 INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
 	VALUES	#('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65.00),
 			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
@@ -123,6 +121,8 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
 	VALUES	#('3', '1',"Sin verduras"),
 		    ('4', '2',"");
+<<<<<<< HEAD
+=======
 
 SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
 	FROM orden AS o
@@ -135,3 +135,4 @@ SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_
 SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
 	FROM orden AS o, detalle AS d, producto AS p 
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
+>>>>>>> afc7f1995aba3ea24074a0459f0e1f0ba2b83387

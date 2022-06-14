@@ -1,39 +1,57 @@
 <template>
-    <v-row>
-  <v-container cols="9">
-    <v-data-table
-      :headers="headers_producto" 
-      :items="productos"
-      :items-per-page="5"
-      class="elevation-1"
-    >
-    <template v-slot:top>
-      <v-toolbar flat>
+  <v-row>
+    <v-container cols="9">
+      <v-data-table
+        :headers="headers_producto" 
+        :items="productos"
+        :items-per-page="5"
+        class="elevation-1"
+      >
+      <template v-slot:top>
+        <v-toolbar flat>
         <v-toolbar-title>Productos</v-toolbar-title>
         <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{item}">
-    <v-btn color="success" @click="guardar_mesero()">Agregar</v-btn>
+        </v-toolbar>
       </template>
-    </v-data-table>
+      <template v-slot:[`item.actions`]="{item}">
+      <v-btn color="success" @click="guardar_mesero()">Agregar</v-btn>
+      </template>
+      </v-data-table>
   </v-container> 
-  <v-container cols = "3">
-        <v-data-table
-      :headers="headers_ordenes" 
-      :items="ordenes"
-      :items-per-page="5"
-      class="elevation-1"
-    >
+
+  <v-dialog v-model="nl_dialog" max-width="500px">
+    <v-card>
+      <v-card-title>Agregando producto a la orden</v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="6"></v-col>
+            <v-col cols="6"></v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6"></v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+
+<v-container cols = "3">
+  <v-data-table
+    :headers="headers_ordenes" 
+    :items="ordenes"
+    :items-per-page="5"
+    class="elevation-1"
+  >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Nueva orden</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
-    </v-data-table>
-  </v-container>
-    </v-row>
+  </v-data-table>
+</v-container>
+</v-row>
 </template>
 
 
@@ -54,7 +72,7 @@
           {text: 'Costo', value: 'pro_costo'},
           {text: 'Comida/Bebida', value: 'pro_cob'},
           {text: 'Categoría', value: 'pro_categoria'},
-          {text: 'Acciones', value: 'actions'}
+          {text: 'Acciones', value: 'actions', sortable:false}
         ],
         headers_ordenes:[
           {
@@ -63,8 +81,8 @@
             sortable: false,
             value: 'ord_id',
           },
-          {text: 'Número de mesa', value: 'ord_mesa_id'},
-          {text: 'Mesero', value: 'ord_mes_id'},
+          {text: 'Número de mesa', value: 'mesa_id'},
+          {text: 'Mesero', value: 'mes_id'},
           {text: 'Estatus de la orden', value: 'ord_estado'},
           {text: 'Fecha', value: 'ord_fecha'},
           {text: 'Productos', value: 'ord_productos'},
@@ -72,6 +90,7 @@
         ],
         productos: [],
         ordenes: [],
+        nl_dialog: false,
 
         nueva_orden:{
           ord_mesa_id: '',
