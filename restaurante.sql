@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS orden(
 CREATE TABLE IF NOT EXISTS detalle(
 	det_ord_id INT,
     det_pro_id INT,
-    det_comentario VARCHAR(80) NOT NULL,
+    det_comentario VARCHAR(300) NOT NULL,
     
     CONSTRAINT fk_orden_detalle
     FOREIGN KEY (det_ord_id)
@@ -115,37 +115,10 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
  
-
-# La tabla de órdenes y detalles se llena desde nuestra aplicación web
 INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
-<<<<<<< HEAD
 	VALUES	#('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65.00),
 			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
 
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
 	VALUES	#('3', '1',"Sin verduras"),
 		    ('4', '2',"");
-
-SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
-	FROM orden AS o
-	INNER JOIN detalle as d
-		ON o.ord_id = d.det_ord_id
-	INNER JOIN producto as p
-		ON d.det_pro_id = p.pro_id
-	WHERE o.ord_id=3;
-
-SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
-	FROM orden AS o, detalle AS d, producto AS p 
-    WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
-=======
-	VALUES	(1, 1,'cerrada','2022-06-13', "Pambazo de chorizo con papas", 65),
-			(2, 3, 'abierta', '2022-06-14', "Tacos encebollados de tripa", 650),
-            (5, 2, 'abierta', '2022-05-13', "Taco tripa", 250);
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 8d493efedf85ae12e081a22bfa7576da7d9206d8
->>>>>>> 64b5d2bb5694c7add8995cafbbe877af88328caa
