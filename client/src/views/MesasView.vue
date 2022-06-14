@@ -50,7 +50,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" to="/menu" @click="guardar()">Asignar</v-btn>
+          <v-btn color="success"  @click="guardar()">Asignar</v-btn>
           <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -61,7 +61,7 @@
 
 <script>
     export default {
-    name: 'Administracion',
+    name: 'Mesas',
     data(){ //almacena temporalmente las variables
       return{
         headers_mesa: [
@@ -78,6 +78,7 @@
         ],
         mesas: [],
         meseros: [],
+
         mesa_dialog: false,
         nueva_orden: {
           ord_mesa_id: '',
@@ -109,12 +110,15 @@
         this.mesa_dialog = false;
       },
       definirMesa(item){
-        this.nueva_orden.ord_mesa_id = item.mesa_id;
+          this.nueva_orden.ord_mesa_id = item.mesa_id;
       },
+
       async guardar(){
-        await this.axios.put('/mesas/estado_ocupada', this.nueva_orden);
+        console.log(this.nueva_orden);
+        await this.axios.put('/mesas/estado_ocupada/'+this.nueva_orden.ord_mesa_id.toString());
         await this.axios.post('/ordenes/nueva_orden', this.nueva_orden);
         this.cancelar();
+        window.location.assign("http://localhost:8081/menu");
       },
       //--------------------Colores------------------------
       getColor (mesa_estatus) {

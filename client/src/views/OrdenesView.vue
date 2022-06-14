@@ -183,27 +183,14 @@
             },
 
             async actualiza_estado(){
+                console.log(this.datos_cuenta.ord_mesa_id);
+
                 await this.axios.put('mesas/liberamesa/'+this.datos_cuenta.ord_mesa_id.toString());
                 await this.axios.put('ordenes/estadopagado/'+this.datos_cuenta.ord_id.toString());
  
                 this.llenar_ordenes();
                 this.cancelar();
             },
-
-            /*async llenar_cuenta(){
-                console.log('SI');
-                const api_data = await this.axios.get('detalles/detalles_de_una_orden', this.datos_cuenta);
-                console.log(this.datos_cuenta);
-                api_data.data.forEach((item) => {
-                    this.cuenta.push({
-                        text: 'Descripcion', value: 'Descripcion',
-                        text: 'Tipo de producto', value: 'Tipo',
-                        text: 'Categoria', value: 'Categoria',
-                        text: 'Comentario', value: 'Comentario',
-                        text: 'Costo', value: 'Costo'
-                    });
-                });
-            },*/
 
             async openDialog(item){
                 if(item.ord_estado!="Pagada"){

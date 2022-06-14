@@ -18,6 +18,7 @@ router.get("/todas_las_ordenes", async (req, res) => {
 
 router.post('/nueva_orden', async(req, res) => {
     try{
+        console.log(req.body);
         const body = req.body;
         const query =   'INSERT INTO orden ' +
                         '(ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot) ' +
@@ -25,7 +26,7 @@ router.post('/nueva_orden', async(req, res) => {
         await connection.query(query, [body.ord_mesa_id, body.ord_mes_id, body.ord_estado, null, null]);
         res.json('ok');
     } catch(error){
-        res.json({ 
+        res.json({
             error:error
         });
     }
