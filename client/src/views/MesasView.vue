@@ -4,30 +4,58 @@
       :headers="headers_mesa" 
       :items="mesas"
       :items-per-page="5"
-      class="elevation-1"
+      class="elevation-7"
     >
-
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>Mesas</v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-    </template>
-            <template v-slot:[`item.actions`]="{item}">
-                <router-link :to="{name: 'menu'}">
-                <v-btn color="purple" dark @click="mesa_dialog=true">Ocupar mesa
-                </v-btn>
-                </router-link>
-            </template>    
-    <template v-slot:[`item.mesa_estatus`]="{ item }">
-      <v-chip
-        :color="getColor(item.mesa_estatus)"
-        dark
-      >
-        {{ item.mesa_estatus }}
-      </v-chip>
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Mesas</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
+      <template v-slot:[`item.actions`]="{item}">
+          <v-btn 
+            small
+            dark
+            rounded
+            color="teal_l"
+            @click="mesa_dialog=true, definirMesa(item)"
+          >
+            Ocupar mesa
+          </v-btn>
+      </template>    
+      <template v-slot:[`item.mesa_estatus`]="{ item }">
+        <v-chip
+          :color="getColor(item.mesa_estatus)"
+          dark
+        >
+          {{ item.mesa_estatus }}
+        </v-chip>
       </template>
     </v-data-table>
+    <v-dialog v-model="mesa_dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          Asignar mesero
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+                <v-select
+                :items="meseros"
+                v-model="nueva_orden.ord_mes_id"
+                label="Mesero">                    
+                </v-select>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" @click="guardar()">Asignar</v-btn>
+          <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -42,59 +70,51 @@
             align: 'start',
             sortable: false,
             value: 'mesa_id',
+            class:"teal white--text",
           },
-          { text: 'Capacidad', value: 'mesa_capacidad' },
-          {text: 'Estatus', value: 'mesa_estatus'},
-          {text: 'Acciones', value: 'actions'}
+          { text: 'Capacidad', value: 'mesa_capacidad', class:"teal white--text", },
+          { text: 'Estatus', value: 'mesa_estatus', class:"teal white--text", },
+          { text: 'Acciones', value: 'actions', class:"teal white--text", }
         ],
-        
         mesas: [],
+        meseros: [],
         mesa_dialog: false,
-        mes_dialog: false,
-        pro_dialog: false,
+        nueva_orden: {
+          ord_mesa_id: '',
+          ord_mes_id: '',
+          ord_estado: 'Abierta'
+        }
       }
     },
     created(){
       this.llenar_mesas();
+      this.llenar_meseros();
     },
-    methods:{ //instrucciones
-      //--------------------Tabla mesa------------------------
+    methods:{
       async llenar_mesas(){
         const api_data = await this.axios.get('mesas/todas_las_mesas');
-        //wait espera a que recupere los datos
-        //la funcion debe ser asincrona
         this.mesas = api_data.data;
       },
-
-
-      cancelar(){
-        //cierra el dialogo y lo cancela
-        this.nueva_mesa={}
-        this.mesa_dialog=false;
-
-      },
-
-    
-      
-      //---------------------Tabla mesero----------------------
       async llenar_meseros(){
         const api_data = await this.axios.get('meseros/todos_los_meseros');
-        //wait espera a que recupere los datos
-        //la funcion debe ser asincrona
-        this.meseros = api_data.data;
+        api_data.data.forEach((item) => {
+          this.meseros.push({
+            text: item.mes_nombre + ' ' + item.mes_ap_pat + ' ' + item.mes_ap_pat,
+            value: item.mes_id
+          });
+        });
       },
-      async eliminar_mesero(item){
-        const body = {
-          mes_id: item.mes_id
-        };
-        await this.axios.delete('meseros/eliminar_mesero', {data:body});
-        this.llenar_meseros();
+      cancelar(){
+        this.nueva_orden = {};
+        this.mesa_dialog = false;
       },
-
-      async guardar_mesero(){
-        await this.axios.post('meseros/nuevo_mesero', this.nuevo_mesero);
-        this.llenar_meseros();
+      definirMesa(item){
+        this.nueva_orden.ord_mesa_id = item.mesa_id;
+      },
+      async guardar(){
+        await this.axios.post('/ordenes/nueva_orden', this.nueva_orden);
         this.cancelar();
+        // await this.axios.post('/mesas/cambiar_estado');
       },
       //--------------------Colores------------------------
       getColor (mesa_estatus) {
