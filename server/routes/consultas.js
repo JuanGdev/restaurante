@@ -92,4 +92,39 @@ router.get('/consultas5', async (req, res) => {
 });
 
 
+// El total de venta por anio.
+router.get('/consultas6', async (req, res) => {
+    try{
+        const query = 'SELECT MONTH(ord_fecha) AS Mes, SUM(ord_tot) AS Venta_Total FROM orden, detalle, producto WHERE det_ord_id = ord_id AND det_pro_id = pro_id AND pro_categoria = "carne" GROUP BY Mes';
+        // await espera a que termine de realizar la consulta
+        const consul_1 = await connection.query(query); //Ejcuta la consulta definida
+        console.log(consul_1);
+        res.json(consul_1);
+    }
+    catch(error){
+        res.json({
+        error:error
+        });
+    }
+    return;
+});
+
+// El total de venta de cerveza por dia
+router.get('/consultas7', async (req, res) => {
+    try{
+        const query = 'SELECT pro_categoria AS Tipo_Producto, DAY(ord_fecha) AS Dia, SUM(ord_tot) AS Venta_Total FROM orden, detalle, producto WHERE det_ord_id = ord_id AND det_pro_id = pro_id AND pro_categoria = "Cerveza" GROUP BY Dia';
+        // await espera a que termine de realizar la consulta
+        const consul_1 = await connection.query(query); //Ejcuta la consulta definida
+        console.log(consul_1);
+        res.json(consul_1);
+    }
+    catch(error){
+        res.json({
+        error:error
+        });
+    }
+    return;
+});
+
+
 module.exports = router; // Exporta todas las rutas definidas arriba
