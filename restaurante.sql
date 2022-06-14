@@ -115,7 +115,7 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
  
 INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
-	VALUES	#('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65.00),
+	VALUES	('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65.00),
 			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
 
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
@@ -136,3 +136,6 @@ SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.p
 	FROM orden AS o, detalle AS d, producto AS p 
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
 >>>>>>> afc7f1995aba3ea24074a0459f0e1f0ba2b83387
+
+
+SELECT MAX(ord_id) FROM orden;

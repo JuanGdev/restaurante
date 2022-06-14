@@ -19,23 +19,6 @@
       </v-data-table>
   </v-container> 
 
-  <v-dialog v-model="nl_dialog" max-width="500px">
-    <v-card>
-      <v-card-title>Agregando producto a la orden</v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="6"></v-col>
-            <v-col cols="6"></v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="6"></v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
-
 <v-container cols = "3">
   <v-data-table
     :headers="headers_ordenes" 
