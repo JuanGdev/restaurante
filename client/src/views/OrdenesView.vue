@@ -50,13 +50,19 @@
                 </v-card-title>
                 <v-card-text>
                     <v-container>
-
-                        <label > Orden: {{ datos_cuenta.ord_id }}  </label>
-                        <v-spacer></v-spacer>
-                        <label> Fecha: {{ datos_cuenta.ord_fecha }}  </label>
-                        <v-spacer></v-spacer>
-                        <label> Mesa: {{ datos_cuenta.ord_mesa_id }}  </label>
-                        <label> Mesero: {{ datos_cuenta.ord_mes_id }}  </label>
+                        <v-row></v-row>
+                        <v-row>
+                            <label style="font-size: 150%"> Orden: {{ datos_cuenta.ord_id }}  </label>
+                            <v-spacer></v-spacer>
+                            <label style="font-size: 150%"> Fecha: {{ datos_cuenta.ord_fecha }}  </label>
+                        </v-row>
+                        <v-row>
+                            <label style="font-size: 150%"> Mesa: {{ datos_cuenta.ord_mesa_id }}  </label>
+                            <v-spacer></v-spacer>
+                        </v-row>
+                        <v-row>
+                            <label style="font-size: 150%"> Mesero: {{ datos_cuenta.ord_mes_id }}  </label>
+                        </v-row>                        
                         
                         <v-container>
                             <v-data-table
@@ -67,7 +73,10 @@
                             >
                             </v-data-table>
                         </v-container>
-                        <span style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </span>
+                        <v-row>
+                            <v-spacer></v-spacer>
+                            <label style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </label>
+                        </v-row>
                         
                     </v-container>
                 </v-card-text>

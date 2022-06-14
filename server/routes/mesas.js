@@ -52,7 +52,7 @@ router.put('/liberamesa', async (req,res) => {
     try{
         const mesa_id = req.body.mesa_id;
         const query = 'UPDATE mesa SET mesa_estatus = "Libre" WHERE mesa_id = ?';
-        console.log(ord_id);
+        console.log(mesa_id);
         const result = await connection.query(query, [mesa_id]);
         //console.log(result);
         res.json(result);
