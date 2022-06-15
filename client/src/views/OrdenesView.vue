@@ -17,7 +17,7 @@
 
                 <template v-slot:[`item.actions`]="{item}">
                     
-                    <v-icon class="mr-2" @click="detalles_dialog=true" medium>
+                    <v-icon class="mr-2" @click="openDetalle(item)" medium>
                         fa-solid fa-receipt
                     </v-icon>
 
@@ -33,8 +33,8 @@
 
                 <template v-slot:[`item.ord_estado`]="{ item }">
                     <v-chip
-                        :color="getColor(item.ord_estado)" dark
                         @click="openDialog(item)"
+                        :color="getColor(item.ord_estado)" dark
                     >
                         {{ item.ord_estado }}
                     </v-chip>
@@ -43,27 +43,30 @@
             </v-data-table>
         </v-container>
 
-        <v-dialog v-model="orden_dialog" max-width = "1000px">
+        <v-dialog v-model="orden_dialog" max-width = "900px">
             <v-card>
-                <v-card-title class="fucsia_l white--text">
+                <v-card-title class="teal_l white--text">
                     Cuenta
                 </v-card-title>
                 <v-card-text>
                     <v-container>
+                        <br>
                         <v-row></v-row>
                         <v-row>
                             <label style="font-size: 150%"> Orden: {{ datos_cuenta.ord_id }}  </label>
                             <v-spacer></v-spacer>
                             <label style="font-size: 150%"> Fecha: {{ datos_cuenta.ord_fecha }}  </label>
                         </v-row>
+                        <br>
                         <v-row>
                             <label style="font-size: 150%"> Mesa: {{ datos_cuenta.ord_mesa_id }}  </label>
                             <v-spacer></v-spacer>
                         </v-row>
+                        <br>
                         <v-row>
                             <label style="font-size: 150%"> Mesero: {{ datos_cuenta.ord_mes_id }}  </label>
                         </v-row>                        
-                        
+                        <br>
                         <v-container>
                             <v-data-table
                                 :headers="headers_cuenta" 
@@ -73,9 +76,11 @@
                             >
                             </v-data-table>
                         </v-container>
+                        <br>
+                        <br>
                         <v-row>
                             <v-spacer></v-spacer>
-                            <label style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </label>
+                            <label style="font-size: 150%"> {{ datos_cuenta.ord_total }} </label>
                         </v-row>
                         
                     </v-container>
@@ -89,12 +94,43 @@
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="detalles_dialog" max-width = "500px">
+        <v-dialog v-model="detalles_dialog" max-width = "900px">
             <v-card>
-                <v-card-title> Detalles </v-card-title>
+                <v-card-title class="teal_l white--text"> Detalles </v-card-title>
                 <v-card-text>
                     <v-container>
-                    
+                        <br>
+                        <v-row></v-row>
+                        <v-row>
+                            <label style="font-size: 150%"> Orden: {{ datos_cuenta.ord_id }}  </label>
+                            <v-spacer></v-spacer>
+                            <label style="font-size: 150%"> Fecha: {{ datos_cuenta.ord_fecha }}  </label>
+                        </v-row>
+                        <br>
+                        <v-row>
+                            <label style="font-size: 150%"> Mesa: {{ datos_cuenta.ord_mesa_id }}  </label>
+                            <v-spacer></v-spacer>
+                        </v-row>
+                        <br>
+                        <v-row>
+                            <label style="font-size: 150%"> Mesero: {{ datos_cuenta.ord_mes_id }}  </label>
+                        </v-row>                        
+                        <br>
+                        <v-container>
+                            <v-data-table
+                                :headers="headers_cuenta" 
+                                :items="cuenta"
+                                hide-default-footer
+                                class="elevation-0"
+                            >
+                            </v-data-table>
+                        </v-container>
+                        <br>
+                        <br>
+                        <v-row>
+                            <v-spacer></v-spacer>
+                            <label style="font-size: 150%"> {{ datos_cuenta.ord_total }} </label>
+                        </v-row>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -177,7 +213,7 @@
             },
 
             cancelar(){
-                this.datos_cuenta={}
+                this.datos_cuenta={};
                 this.orden_dialog=false;
                 this.detalles_dialog=false;
             },
@@ -192,20 +228,25 @@
                 this.cancelar();
             },
 
+            async llenaDetalle(item){
+                const api_data = await this.axios.get('detalles/total/'+item.ord_id.toString());
+                this.datos_cuenta.ord_total=api_data.data[0];
+                this.datos_cuenta.ord_id=item.ord_id;
+                this.datos_cuenta.ord_mesa_id=item.ord_mesa_id;
+                this.datos_cuenta.ord_mes_id=item.ord_mes_id;
+                this.datos_cuenta.ord_fecha=item.ord_fecha;
+                this.llenar_cuenta();
+            },
+
+            async openDetalle(item) {
+                this.detalles_dialog=true;
+                this.llenaDetalle(item);
+            },
+            
             async openDialog(item){
                 if(item.ord_estado!="Pagada"){
                     this.orden_dialog=true;
-
-                    this.datos_cuenta.ord_id=item.ord_id;
-                    this.datos_cuenta.ord_mesa_id=item.ord_mesa_id;
-                    this.datos_cuenta.ord_mes_id=item.ord_mes_id;
-                    this.datos_cuenta.ord_fecha=item.ord_fecha;
-                    this.datos_cuenta.ord_total=item.ord_total;
-
-                    this.llenar_cuenta();
-                }
-                else{
-                    this.cancelar();
+                    this.llenaDetalle(item);
                 }
             },
 
