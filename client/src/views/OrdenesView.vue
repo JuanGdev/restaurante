@@ -20,9 +20,9 @@
             fa-solid fa-receipt
           </v-icon>
 
-          <v-btn icon :to="{ name: 'menu' }">
-            <v-icon class="mr-2" medium>fa-solid fa-pencil-alt</v-icon>
-          </v-btn>
+          <v-icon class="mr-2" @click="openEdit(item)" medium>
+            fa-solid fa-pencil-alt
+          </v-icon>
 
           <v-icon class="mr-2" @click="eliminar_orden(item)" medium>
             fa-solid fa-trash-alt
@@ -155,6 +155,105 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="edit_dialog" max-width="900px">
+      <v-card>
+        <v-card-title class="teal_l white--text"> Editar </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-data-table
+              :headers="headers_producto"
+              :items="productos"
+              :items-per-page="5"
+              class="elevation-1"
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title>Productos</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                </v-toolbar>
+              </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-btn color="success" @click="definirProducto(item)">Agregar</v-btn>
+              </template>
+            </v-data-table>
+            
+            <v-dialog v-model="producto_dialog" max-width="500px">
+              <v-card>
+                <v-card-title> Detalle del producto </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-text-field
+                      v-model="detalles.det_comentario"
+                      placeholder="Agrega alguna especificación para el producto"
+                    ></v-text-field>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="success" @click="guardar()">Añadir</v-btn>
+                  <v-btn color="error" @click="cancelarProd()">Cancelar</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+
+
+          </v-container>
+          <v-container>
+            <br />
+            <v-row></v-row>
+            <v-row>
+              <label style="font-size: 150%">
+                Orden: {{ datos_cuenta.ord_id }}
+              </label>
+              <v-spacer></v-spacer>
+              <label style="font-size: 150%">
+                Fecha: {{ datos_cuenta.ord_fecha }}
+              </label>
+            </v-row>
+            <br />
+            <v-row>
+              <label style="font-size: 150%">
+                Mesa: {{ datos_cuenta.ord_mesa_id }}
+              </label>
+              <v-spacer></v-spacer>
+            </v-row>
+            <br />
+            <v-row>
+              <label style="font-size: 150%">
+                Mesero: {{ datos_cuenta.ord_mes_id }}
+              </label>
+            </v-row>
+            <br />
+            <v-container>
+              <v-data-table
+                :headers="headers_cuenta"
+                :items="cuenta"
+                class="elevation-0"
+              >
+              </v-data-table>
+            </v-container>
+            <br />
+            <br />
+            <v-row>
+              <v-spacer></v-spacer>
+              <label style="font-size: 150%">
+                {{ datos_cuenta.ord_total }}
+              </label>
+            </v-row>
+          </v-container>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="error" @click="cierraOrden()">Cerrar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -192,12 +291,47 @@ export default {
         { text: "Comentario", value: "Comentario", sortable: false },
         { text: "Costo", value: "Costo", sortable: false },
       ],
+      headers_producto: [
+        {
+          text: "Identificador",
+          class: "orange_l white--text",
+          align: "start",
+          sortable: false,
+          value: "pro_id",
+        },
+        { text: "Nombre", value: "pro_nombre", class: "orange_l white--text",sortable: false  },
+        {
+          text: "Descripción",
+          value: "pro_desc",
+          class: "orange_l white--text",sortable: false 
+        },
+        { text: "Costo", value: "pro_costo", class: "orange_l white--text", sortable: false  },
+        {
+          text: "Comida/Bebida",
+          value: "pro_cob",
+          class: "orange_l white--text",sortable: false 
+        },
+        {
+          text: "Categoría",
+          value: "pro_categoria",
+          class: "orange_l white--text",sortable: false 
+        },
+        {
+          text: "Acciones",
+          value: "actions",
+          sortable: false,
+          class: "orange_l white--text",sortable: false 
+        },
+      ],
 
       ordenes: [],
       cuenta: [],
+      productos: [],
 
       orden_dialog: false,
       detalles_dialog: false,
+      edit_dialog: false,
+      producto_dialog: false,
 
       datos_cuenta: {
         ord_id: "",
@@ -206,6 +340,13 @@ export default {
         ord_fecha: "",
         ord_total: "",
       },
+
+      detalles: {
+        det_pro_id: "",
+        det_ord_id: "",
+        det_comentario: "",
+      }
+
     };
   },
   created() {
@@ -230,10 +371,24 @@ export default {
       this.datos_cuenta = {};
       this.orden_dialog = false;
       this.detalles_dialog = false;
+      this.edit_dialog =false;
+    },
+
+    cancelarProd() {
+      this.detalles.det_comentario="";
+      this.producto_dialog = false;
+    },
+
+    async guardar() {
+      await this.axios.post("detalles/agregar_detalles", this.detalles);
+      const api_data = await this.axios.get(
+        "detalles/detalles_de_una_orden/" + this.detalles.det_ord_id.toString()
+      );
+      this.cuenta = api_data.data;
+      this.cancelarProd();
     },
 
     async actualiza_estado() {
-      console.log(this.datos_cuenta.ord_mesa_id);
 
       await this.axios.put(
         "mesas/liberamesa/" + this.datos_cuenta.ord_mesa_id.toString()
@@ -242,6 +397,14 @@ export default {
         "ordenes/estadopagado/" + this.datos_cuenta.ord_id.toString()
       );
 
+      this.llenar_ordenes();
+      this.cancelar();
+    },
+
+    async cierraOrden() {
+      await this.axios.put(
+        "ordenes/estadocerrado/" + this.datos_cuenta.ord_id.toString()
+      );
       this.llenar_ordenes();
       this.cancelar();
     },
@@ -258,29 +421,48 @@ export default {
       this.llenar_cuenta();
     },
 
-    async openDetalle(item) {
+    openDetalle(item) {
       this.detalles_dialog = true;
       this.llenaDetalle(item);
     },
 
-    async openDialog(item) {
+    openDialog(item) {
       if (item.ord_estado != "Pagada") {
         this.orden_dialog = true;
         this.llenaDetalle(item);
       }
     },
 
+    async llenar_productos() {
+      const api_data = await this.axios.get("productos/todos_los_productos");
+      this.productos = api_data.data;
+    },
+
     async llenar_cuenta() {
+      this.detalles.det_ord_id = this.datos_cuenta.ord_id;
       const api_data = await this.axios.get(
         "detalles/detalles_de_una_orden/" + this.datos_cuenta.ord_id.toString()
       );
       this.cuenta = api_data.data;
     },
 
+    async openEdit(item){
+      if (item.ord_estado != "Pagada") {
+        this.edit_dialog=true;
+        this.llenar_productos();
+        this.llenaDetalle(item);
+      }
+    },
+
     getColor(ord_estado) {
       if (ord_estado == "Abierta") return "green";
       else if (ord_estado == "Cerrada") return "orange";
       else if (ord_estado == "Pagada") return "error";
+    },
+
+    definirProducto(item) {
+      this.detalles.det_pro_id = item.pro_id;
+      this.producto_dialog = true;
     },
   },
 };
