@@ -17,6 +17,7 @@ router.get("/todas_las_mesas", async (req, res) => {
   }
   return;
 });
+<<<<<<< HEAD
 router.put("/estado_ocupada/:mesa_id", async (req, res) => {
   try {
     const mesa_id = req.params.mesa_id;
@@ -24,6 +25,22 @@ router.put("/estado_ocupada/:mesa_id", async (req, res) => {
     const result = await connection.query(query, [mesa_id]);
     console.log(result);
     res.json(result);
+=======
+router.put('/estado_ocupada/:mesa_id', async (req,res) => {
+    try{
+        const mesa_id = req.params.mesa_id;
+        const query = 'UPDATE mesa SET mesa_estatus = "Ocupada" WHERE mesa_id = ?';
+        const result = await connection.query(query, [mesa_id]);
+        res.json(result);
+        return;
+    }
+    catch(error){
+        res.json ({
+            error:error
+        });
+        return;
+    }
+>>>>>>> 894d4699b8b31eb0175914f0a21c0964edf54de7
     return;
   } catch (error) {
     res.json({
