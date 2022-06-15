@@ -18,7 +18,7 @@
         </template>
       </v-data-table>
 
-      <v-data-table
+      <v-data-table hidden
         :headers="headers_ordenid"
         :items="ordenid"
         :items-per-page="1"
@@ -27,9 +27,14 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>Numero de Orden</v-toolbar-title>
+            <v-toolbar-title hidden>Numero de Orden</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
+        </template>
+
+        <template v-slot:[`item.ord_id`]="{item}">
+          
+
         </template>
       </v-data-table>
 
@@ -38,7 +43,7 @@
           <v-card-title> Detalle del producto </v-card-title>
           <v-card-text>
             <v-container>
-              <input
+              <v-text-field
                 v-model="detalles.det_comentario"
                 placeholder="Agrega alguna especificación para el producto"
               />
