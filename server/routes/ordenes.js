@@ -73,9 +73,7 @@ router.put("/estadocerrado/:ord_id", async (req, res) => {
   try {
     const ord_id = req.params.ord_id;
     const query = 'UPDATE orden SET ord_estado = "Cerrada" WHERE ord_id = ?';
-    console.log(ord_id);
     const result = await connection.query(query, [ord_id]);
-    //console.log(result);
     res.json(result);
   } catch (error) {
     res.json({

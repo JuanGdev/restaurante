@@ -14,7 +14,7 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn color="success" @click="definirProducto(item)">Agregar</v-btn>
+          <v-btn color="orange white--text" small @click="definirProducto(item)">Agregar</v-btn>
         </template>
       </v-data-table>
     </v-container>
@@ -33,12 +33,8 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn 
-            color="success" 
-            @click="llenar_cuenta(item)"
-          >
-            Tomar Orden
-          </v-btn>
+          <v-btn color="success" small @click="llenar_cuenta(item)">Tomar Orden</v-btn>
+          <v-btn color="error" small @click="cerrarOrden()">Cerrar Orden</v-btn>
         </template>
       </v-data-table>
       <v-data-table
@@ -121,13 +117,14 @@ export default {
           text: "Nombre del Producto",
           align: "start",
           sortable: false,
-          value: "Nombre",         class: " fucsia_l",
+          value: "Nombre",         
+          class: "teal white--text",
         },
-        { text: "Descripcion", value: "Descripcion", sortable: false,         class: "teal white--text", },
-        { text: "Tipo de producto", value: "Tipo", sortable: false,         class: "teal white--text", },
-        { text: "Categoria", value: "Categoria", sortable: false,         class: "teal white--text", },
-        { text: "Comentario", value: "Comentario", sortable: false,         class: "teal white--text", },
-        { text: "Costo", value: "Costo", sortable: false,         class: "teal white--text", },
+        { text: "Descripcion", value: "Descripcion", sortable: false, class: "teal white--text", },
+        { text: "Tipo de producto", value: "Tipo", sortable: false, class: "teal white--text", },
+        { text: "Categoria", value: "Categoria", sortable: false, class: "teal white--text", },
+        { text: "Comentario", value: "Comentario", sortable: false, class: "teal white--text", },
+        { text: "Costo", value: "Costo", sortable: false, class: "teal white--text", },
       ],
 
       productos: [],
@@ -181,6 +178,13 @@ export default {
       );
       this.cuenta = api_data.data;
       this.cancelar();
+    },
+
+    async cerrarOrden() {
+      await this.axios.put(
+        "ordenes/estadocerrado/" + this.detalles.det_ord_id.toString()
+      );
+      window.location.assign("http://localhost:8080/ordenes");
     },
 
     cancelar() {

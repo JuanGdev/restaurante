@@ -4,7 +4,6 @@ const connection = require("../connection");
 
 router.get("/detalles_de_una_orden/:ord_id", async (req, res) => {
   try {
-    console.log('si')
     const ord_id = req.params.ord_id;
     const query =
       "SELECT p.pro_nombre AS Nombre, " +
