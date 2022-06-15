@@ -65,4 +65,18 @@ router.put('/estadopagado/:ord_id', async (req,res) => {
     return;
 });
 
+router.get("/max_orden", async (req, res) => {
+    try{
+        const query = 'SELECT MAX(ord_id) AS OrdenId FROM orden';
+        const ordenes = await connection.query(query);
+        console.log(ordenes);
+        res.json(ordenes);    
+    }
+    catch(error){
+        res.json({
+            error:error
+        });
+    }
+});
+
 module.exports = router;

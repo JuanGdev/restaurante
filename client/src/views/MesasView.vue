@@ -124,7 +124,7 @@
         await this.axios.put('/mesas/estado_ocupada/'+this.nueva_orden.ord_mesa_id.toString());
         await this.axios.post('/ordenes/nueva_orden', this.nueva_orden);
         this.cancelar();
-        window.location.assign("http://localhost:8080/menu");
+        window.location.assign("http://localhost:8081/menu");
       },
       //--------------------Colores------------------------
       getColor (mesa_estatus) {

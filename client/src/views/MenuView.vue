@@ -75,6 +75,8 @@
           {text: 'Acciones', value: 'actions', sortable:false}
         ],
         productos: [],
+        ordenid: [],
+
         producto_dialog: false,
         detalles: {
           det_pro_id: '',
