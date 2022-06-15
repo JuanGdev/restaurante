@@ -30,7 +30,7 @@ router.post("/agregar_detalles", async (req,res) => {
     try {
         const detalles_query = req.body;
         console.log('a');
-        const query = 'INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario) VALUES (?,?,?)'
+        const query = 'INSERT INTO detalle (det_ord_id,det_pro_id, det_comentario) VALUES (?,?,?)'
         const detalles = await connection.query(query, [detalles_query.det_pro_id, detalles_query.det_comentario]);
         console.log(detalles);
         res.json(detalles);
