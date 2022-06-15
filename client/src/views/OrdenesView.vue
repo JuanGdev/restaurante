@@ -273,7 +273,7 @@ export default {
         { text: "Mesa", value: "ord_mesa_id", class: "orange_l white--text" },
         { text: "Mesero", value: "ord_mes_id", class: "orange_l white--text" },
         { text: "Fecha", value: "ord_fecha", class: "orange_l white--text" },
-        { text: "Total", value: "ord_tot", class: "orange_l white--text" },
+        //{ text: "Total", value: "ord_tot", class: "orange_l white--text" },
         { text: "Estatus", value: "ord_estado", class: "orange_l white--text" },
         { text: "Acciones", value: "actions", class: "orange_l white--text" },
       ],
