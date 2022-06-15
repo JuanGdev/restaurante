@@ -33,8 +33,8 @@
 
                 <template v-slot:[`item.ord_estado`]="{ item }">
                     <v-chip
-                        :color="getColor(item.ord_estado)" dark
                         @click="openDialog(item)"
+                        :color="getColor(item.ord_estado)" dark
                     >
                         {{ item.ord_estado }}
                     </v-chip>
@@ -80,7 +80,7 @@
                         <br>
                         <v-row>
                             <v-spacer></v-spacer>
-                            <label style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </label>
+                            <label style="font-size: 150%"> {{ datos_cuenta.ord_total }} </label>
                         </v-row>
                         
                     </v-container>
@@ -129,7 +129,7 @@
                         <br>
                         <v-row>
                             <v-spacer></v-spacer>
-                            <label style="font-size: 150%"> Total: {{ datos_cuenta.ord_total }} </label>
+                            <label style="font-size: 150%"> {{ datos_cuenta.ord_total }} </label>
                         </v-row>
                     </v-container>
                 </v-card-text>
@@ -213,7 +213,7 @@
             },
 
             cancelar(){
-                this.datos_cuenta={}
+                this.datos_cuenta={};
                 this.orden_dialog=false;
                 this.detalles_dialog=false;
             },
@@ -228,27 +228,25 @@
                 this.cancelar();
             },
 
-            async openDetalle(item) {
-                this.detalles_dialog=true;
+            async llenaDetalle(item){
+                const api_data = await this.axios.get('detalles/total/'+item.ord_id.toString());
+                this.datos_cuenta.ord_total=api_data.data[0];
                 this.datos_cuenta.ord_id=item.ord_id;
                 this.datos_cuenta.ord_mesa_id=item.ord_mesa_id;
                 this.datos_cuenta.ord_mes_id=item.ord_mes_id;
                 this.datos_cuenta.ord_fecha=item.ord_fecha;
-                this.datos_cuenta.ord_total=item.ord_total;
                 this.llenar_cuenta();
+            },
+
+            async openDetalle(item) {
+                this.detalles_dialog=true;
+                this.llenaDetalle(item);
             },
             
             async openDialog(item){
                 if(item.ord_estado!="Pagada"){
                     this.orden_dialog=true;
-
-                    this.datos_cuenta.ord_id=item.ord_id;
-                    this.datos_cuenta.ord_mesa_id=item.ord_mesa_id;
-                    this.datos_cuenta.ord_mes_id=item.ord_mes_id;
-                    this.datos_cuenta.ord_fecha=item.ord_fecha;
-                    this.datos_cuenta.ord_total=item.ord_total;
-
-                    this.llenar_cuenta();
+                    this.llenaDetalle(item);
                 }
             },
 
