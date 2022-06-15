@@ -2,7 +2,7 @@
   <v-row>
     <v-container cols="9">
       <v-data-table
-        :headers="headers_producto" 
+        :headers="headers_producto"
         :items="productos"
         :items-per-page="5"
         class="elevation-1"
@@ -13,13 +13,13 @@
             <v-spacer></v-spacer>
           </v-toolbar>
         </template>
-        <template v-slot:[`item.actions`]="{item}">
-          <v-btn color="success" @click="producto_dialog=true">Agregar</v-btn>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn color="success" @click="producto_dialog = true">Agregar</v-btn>
         </template>
       </v-data-table>
 
       <v-data-table
-        :headers="headers_ordenid" 
+        :headers="headers_ordenid"
         :items="ordenid"
         :items-per-page="1"
         hide-default-footer
@@ -33,93 +33,95 @@
         </template>
       </v-data-table>
 
-          <v-dialog v-model="producto_dialog" max-width="500px">
-      <v-card>
-        <v-card-title>
-          Detalle del producto
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-              <input v-model="detalles.det_comentario" placeholder="Agrega alguna especificación para el producto"/>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="success"  @click="guardar()">Añadir</v-btn>
-          <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-container> 
-</v-row>
+      <v-dialog v-model="producto_dialog" max-width="500px">
+        <v-card>
+          <v-card-title> Detalle del producto </v-card-title>
+          <v-card-text>
+            <v-container>
+              <input
+                v-model="detalles.det_comentario"
+                placeholder="Agrega alguna especificación para el producto"
+              />
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="success" @click="guardar()">Añadir</v-btn>
+            <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-container>
+  </v-row>
 </template>
 
-
 <script>
-  export default {
-    name: 'Menu',
-    data(){ //almacena temporalmente las variables
-      return{
-        headers_producto: [
-          {
-            text: 'Identificador',
-            align: 'start',
-            sortable: false,
-            value: 'pro_id',
-          },
-          {text: 'Nombre', value: 'pro_nombre' },
-          {text: 'Descripción', value: 'pro_desc'},
-          {text: 'Costo', value: 'pro_costo'},
-          {text: 'Comida/Bebida', value: 'pro_cob'},
-          {text: 'Categoría', value: 'pro_categoria'},
-          {text: 'Acciones', value: 'actions', sortable:false}
-        ],
-        headers_ordenid:[
-          {
-            text: '',
-            align: 'start',
-            sortable: false,
-            value: 'OrdenId',
-          },
-        ],
-        productos: [],
-        ordenid: [],
+export default {
+  name: "Menu",
+  data() {
+    //almacena temporalmente las variables
+    return {
+      headers_producto: [
+        {
+          text: "Identificador",
+          align: "start",
+          sortable: false,
+          value: "pro_id",
+        },
+        { text: "Nombre", value: "pro_nombre" },
+        { text: "Descripción", value: "pro_desc" },
+        { text: "Costo", value: "pro_costo" },
+        { text: "Comida/Bebida", value: "pro_cob" },
+        { text: "Categoría", value: "pro_categoria" },
+        { text: "Acciones", value: "actions", sortable: false },
+      ],
+      headers_ordenid: [
+        {
+          text: "",
+          align: "start",
+          sortable: false,
+          value: "OrdenId",
+        },
+      ],
+      productos: [],
+      ordenid: [],
 
-        producto_dialog: false,
+      producto_dialog: false,
 
-        detalles:{
-          det_pro_id: '',
-          det_ord_id: '',
-          det_comentario: ''
-        }
-      }
+      detalles: {
+        det_pro_id: "",
+        det_ord_id: "",
+        det_comentario: "",
+      },
+    };
+  },
+  created() {
+    this.llenar_productos();
+    this.llenar_ordenid();
+  },
+  methods: {
+    //instrucciones
+
+    async llenar_productos() {
+      const api_data = await this.axios.get("productos/todos_los_productos");
+      this.productos = api_data.data;
     },
-    created(){
-      this.llenar_productos();
-      this.llenar_ordenid();
-    },
-    methods:{ //instrucciones
-      
-      async llenar_productos(){
-        const api_data = await this.axios.get('productos/todos_los_productos');
-        this.productos = api_data.data;
-      },
 
-      async llenar_ordenid(){
-        const api_data = await this.axios.get('ordenes/max_orden');
-        this.ordenid = api_data.data;
-      },
-      
-      async guardar(){
-        await this.axios.post('detalles/agregar_detalles', this.detalles);
-        this.cancelar();
-      },
-        
-      cancelar(){
-        this.detalles = {};
-        this.producto_dialog = false;
-      },
-    }
-  }
+    async llenar_ordenid() {
+      const api_data = await this.axios.get("ordenes/max_orden");
+      this.ordenid = api_data.data;
+    },
+
+    async guardar() {
+      await this.axios.post("detalles/agregar_detalles", this.detalles);
+      this.cancelar();
+    },
+
+    cancelar() {
+      this.detalles = {};
+      this.producto_dialog = false;
+    },
+  },
+};
 </script>
