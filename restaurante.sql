@@ -119,7 +119,7 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
 
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
-	VALUES	#('3', '1',"Sin verduras"),
+	VALUES	('3', '1',"Sin verduras"),
 		    ('4', '2',"");
 
 SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
@@ -134,3 +134,4 @@ SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.p
 	FROM orden AS o, detalle AS d, producto AS p 
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
     
+

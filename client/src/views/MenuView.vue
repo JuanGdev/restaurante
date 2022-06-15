@@ -14,7 +14,7 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn color="success" @click="producto_dialog = true">Agregar</v-btn>
+          <v-btn color="success" @click="definirProducto(item)">Agregar</v-btn>
         </template>
       </v-data-table>
 
@@ -40,7 +40,6 @@
       <v-data-table
         :headers="headers_cuenta"
         :items="cuenta"
-        hide-default-footer
         class="elevation-0"
       >
       </v-data-table>
@@ -76,16 +75,34 @@ export default {
       headers_producto: [
         {
           text: "Identificador",
+          class: "orange_l white--text",
           align: "start",
           sortable: false,
           value: "pro_id",
         },
-        { text: "Nombre", value: "pro_nombre" },
-        { text: "Descripción", value: "pro_desc" },
-        { text: "Costo", value: "pro_costo" },
-        { text: "Comida/Bebida", value: "pro_cob" },
-        { text: "Categoría", value: "pro_categoria" },
-        { text: "Acciones", value: "actions", sortable: false },
+        { text: "Nombre", value: "pro_nombre", class: "orange_l white--text",sortable: false  },
+        {
+          text: "Descripción",
+          value: "pro_desc",
+          class: "orange_l white--text",sortable: false 
+        },
+        { text: "Costo", value: "pro_costo", class: "orange_l white--text", sortable: false  },
+        {
+          text: "Comida/Bebida",
+          value: "pro_cob",
+          class: "orange_l white--text",sortable: false 
+        },
+        {
+          text: "Categoría",
+          value: "pro_categoria",
+          class: "orange_l white--text",sortable: false 
+        },
+        {
+          text: "Acciones",
+          value: "actions",
+          sortable: false,
+          class: "orange_l white--text",sortable: false 
+        },
       ],
       headers_ordenid: [
         {
@@ -101,13 +118,13 @@ export default {
           text: "Nombre del Producto",
           align: "start",
           sortable: false,
-          value: "Nombre",
+          value: "Nombre",         class: " fucsia_l",
         },
-        { text: "Descripcion", value: "Descripcion", sortable: false },
-        { text: "Tipo de producto", value: "Tipo", sortable: false },
-        { text: "Categoria", value: "Categoria", sortable: false },
-        { text: "Comentario", value: "Comentario", sortable: false },
-        { text: "Costo", value: "Costo", sortable: false },
+        { text: "Descripcion", value: "Descripcion", sortable: false,         class: "teal white--text", },
+        { text: "Tipo de producto", value: "Tipo", sortable: false,         class: "teal white--text", },
+        { text: "Categoria", value: "Categoria", sortable: false,         class: "teal white--text", },
+        { text: "Comentario", value: "Comentario", sortable: false,         class: "teal white--text", },
+        { text: "Costo", value: "Costo", sortable: false,         class: "teal white--text", },
       ],
 
       productos: [],
@@ -147,20 +164,33 @@ export default {
 
     async guardar() {
       await this.axios.post("detalles/agregar_detalles", this.detalles);
+      const api_data = await this.axios.get(
+        "detalles/detalles_de_una_orden/" + this.detalles.det_ord_id.toString()
+      );
+      this.cuenta = api_data.data;
       this.cancelar();
     },
 
     cancelar() {
-      this.detalles = {};
+      this.detalles = {
+        det_comentario: "",
+        det_pro_id: "",
+      };
       this.producto_dialog = false;
     },
 
     async llenar_cuenta(item) {
+      this.detalles.det_ord_id = item.OrdenId;
       console.log(item.OrdenId);
       const api_data = await this.axios.get(
-        "detalles/detalles_de_una_orden/" + item.OrdenId.toString()
+        "detalles/detalles_de_una_orden/" + this.detalles.det_ord_id.toString()
       );
       this.cuenta = api_data.data;
+    },
+    definirProducto(item) {
+      this.detalles.det_pro_id = item.pro_id;
+      console.log(this.detalles);
+      this.producto_dialog = true;
     },
   },
 };
