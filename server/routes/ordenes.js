@@ -69,6 +69,22 @@ router.put("/estadopagado/:ord_id", async (req, res) => {
   return;
 });
 
+router.put("/estadocerrado/:ord_id", async (req, res) => {
+  try {
+    const ord_id = req.params.ord_id;
+    const query = 'UPDATE orden SET ord_estado = "Cerrada" WHERE ord_id = ?';
+    console.log(ord_id);
+    const result = await connection.query(query, [ord_id]);
+    //console.log(result);
+    res.json(result);
+  } catch (error) {
+    res.json({
+      error: error,
+    });
+  }
+  return;
+});
+
 router.get("/max_orden", async (req, res) => {
   try {
     const query = "SELECT MAX(ord_id) AS OrdenId FROM orden";
