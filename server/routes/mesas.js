@@ -23,7 +23,6 @@ router.put('/estado_ocupada/:mesa_id', async (req,res) => {
         const mesa_id = req.params.mesa_id;
         const query = 'UPDATE mesa SET mesa_estatus = "Ocupada" WHERE mesa_id = ?';
         const result = await connection.query(query, [mesa_id]);
-        console.log(result)
         res.json(result);
         return;
     }
