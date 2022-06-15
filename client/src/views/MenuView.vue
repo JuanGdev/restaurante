@@ -1,11 +1,11 @@
 <template>
-  <v-row>
-    <v-container cols="9">
+  <v-container cols="9">
+    <v-container>
       <v-data-table
         :headers="headers_producto"
         :items="productos"
         :items-per-page="5"
-        class="elevation-1"
+        class="elevation-7"
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -17,13 +17,14 @@
           <v-btn color="success" @click="definirProducto(item)">Agregar</v-btn>
         </template>
       </v-data-table>
-
+    </v-container>
+    <v-container class="elevation-7">
       <v-data-table
         :headers="headers_ordenid"
         :items="ordenid"
         :items-per-page="1"
         hide-default-footer
-        class="elevation-1"
+        class="elevation-0"
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -32,38 +33,40 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn color="success" @click="llenar_cuenta(item)"
-            >Tomar Orden</v-btn
+          <v-btn 
+            color="success" 
+            @click="llenar_cuenta(item)"
           >
+            Tomar Orden
+          </v-btn>
         </template>
       </v-data-table>
       <v-data-table
         :headers="headers_cuenta"
         :items="cuenta"
         class="elevation-0"
-      >
-      </v-data-table>
-      <v-dialog v-model="producto_dialog" max-width="500px">
-        <v-card>
-          <v-card-title> Detalle del producto </v-card-title>
-          <v-card-text>
-            <v-container>
-              <input
-                v-model="detalles.det_comentario"
-                placeholder="Agrega alguna especificación para el producto"
-              />
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="success" @click="guardar()">Añadir</v-btn>
-            <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      ></v-data-table>
     </v-container>
-  </v-row>
+    <v-dialog v-model="producto_dialog" max-width="500px">
+      <v-card>
+        <v-card-title> Detalle del producto </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-text-field 
+              v-model="detalles.det_comentario"
+              placeholder="Agrega alguna especificación para el producto"
+            ></v-text-field>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" @click="guardar()">Añadir</v-btn>
+          <v-btn color="error" @click="cancelar()">Cancelar</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
 </template>
 
 <script>
@@ -162,6 +165,15 @@ export default {
       this.ordenid = api_data.data;
     },
 
+    async llenar_cuenta(item) {
+      this.detalles.det_ord_id = item.OrdenId;
+      console.log(item.OrdenId);
+      const api_data = await this.axios.get(
+        "detalles/detalles_de_una_orden/" + this.detalles.det_ord_id.toString()
+      );
+      this.cuenta = api_data.data;
+    },
+
     async guardar() {
       await this.axios.post("detalles/agregar_detalles", this.detalles);
       const api_data = await this.axios.get(
@@ -172,21 +184,10 @@ export default {
     },
 
     cancelar() {
-      this.detalles = {
-        det_comentario: "",
-        det_pro_id: "",
-      };
+      this.detalles.det_comentario = "";
       this.producto_dialog = false;
     },
 
-    async llenar_cuenta(item) {
-      this.detalles.det_ord_id = item.OrdenId;
-      console.log(item.OrdenId);
-      const api_data = await this.axios.get(
-        "detalles/detalles_de_una_orden/" + this.detalles.det_ord_id.toString()
-      );
-      this.cuenta = api_data.data;
-    },
     definirProducto(item) {
       this.detalles.det_pro_id = item.pro_id;
       console.log(this.detalles);

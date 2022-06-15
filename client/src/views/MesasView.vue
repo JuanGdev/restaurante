@@ -120,7 +120,7 @@ export default {
       );
       await this.axios.post("/ordenes/nueva_orden", this.nueva_orden);
       this.cancelar();
-      window.location.assign("http://localhost:8081/menu");
+      window.location.assign("http://localhost:8080/menu");
     },
     //--------------------Colores------------------------
     getColor(mesa_estatus) {

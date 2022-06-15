@@ -4,6 +4,7 @@ const connection = require("../connection");
 
 router.get("/detalles_de_una_orden/:ord_id", async (req, res) => {
   try {
+    console.log('si')
     const ord_id = req.params.ord_id;
     const query =
       "SELECT p.pro_nombre AS Nombre, " +
@@ -29,16 +30,14 @@ router.get("/detalles_de_una_orden/:ord_id", async (req, res) => {
 router.post("/agregar_detalles", async (req, res) => {
   try {
     const detalles_query = req.body;
-    console.log(detalles);
     const query =
-      "INSERT INTO detalle (det_ord_id,det_pro_id, det_comentario) VALUES (?,?,?)";
+      "INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario) VALUES (?,?,?)";
     const detalles = await connection.query(query, [
       detalles_query.det_ord_id,
       detalles_query.det_pro_id,
       detalles_query.det_comentario,
     ]);
-    res.json(detalles);
-    
+    res.json(detalles)
   } catch (error) {
     res.json({
       error: error,

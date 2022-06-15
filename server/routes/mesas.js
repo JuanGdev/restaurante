@@ -31,7 +31,6 @@ router.put("/estado_ocupada/:mesa_id", async (req, res) => {
     });
     return;
   }
-  return;
 });
 router.delete("/eliminar_mesa", async (req, res) => {
   try {
@@ -53,7 +52,6 @@ router.put("/liberamesa/:mesa_id", async (req, res) => {
     const query = 'UPDATE mesa SET mesa_estatus = "Libre" WHERE mesa_id = ?';
     console.log(mesa_id);
     const result = await connection.query(query, [mesa_id]);
-    //console.log(result);
     res.json(result);
   } catch (error) {
     res.json({
