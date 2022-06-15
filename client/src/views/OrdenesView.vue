@@ -183,10 +183,10 @@
                 <v-card-title> Detalle del producto </v-card-title>
                 <v-card-text>
                   <v-container>
-                    <input
+                    <v-text-field
                       v-model="detalles.det_comentario"
                       placeholder="Agrega alguna especificación para el producto"
-                    />
+                    ></v-text-field>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -375,6 +375,7 @@ export default {
     },
 
     cancelarProd() {
+      this.detalles.det_comentario="";
       this.producto_dialog = false;
     },
 
@@ -446,9 +447,11 @@ export default {
     },
 
     async openEdit(item){
-      this.edit_dialog=true;
-      this.llenar_productos();
-      this.llenaDetalle(item);
+      if (item.ord_estado != "Pagada") {
+        this.edit_dialog=true;
+        this.llenar_productos();
+        this.llenaDetalle(item);
+      }
     },
 
     getColor(ord_estado) {
