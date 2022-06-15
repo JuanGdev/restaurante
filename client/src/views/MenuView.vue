@@ -31,8 +31,17 @@
             <v-spacer></v-spacer>
           </v-toolbar>
         </template>
+        <template v-slot:[`item.actions`]="{item}">
+          <v-btn color="success" @click="llenar_cuenta(item)">Tomar Orden</v-btn>
+        </template>
       </v-data-table>
-
+      <v-data-table
+          :headers="headers_cuenta" 
+          :items="cuenta"
+          hide-default-footer
+          class="elevation-0"
+      >
+      </v-data-table>    
           <v-dialog v-model="producto_dialog" max-width="500px">
       <v-card>
         <v-card-title>
@@ -82,11 +91,31 @@
             sortable: false,
             value: 'OrdenId',
           },
+          {text: '', align: 'end', value: 'actions', sortable:false}
         ],
+        headers_cuenta: [
+          {
+              text: 'Nombre del Producto',
+              align: 'start',
+              sortable: false,
+              value: 'Nombre',
+          },
+          {text: 'Descripcion', value: 'Descripcion', sortable: false},
+          {text: 'Tipo de producto', value: 'Tipo', sortable: false},
+          {text: 'Categoria', value: 'Categoria', sortable: false},
+          {text: 'Comentario', value: 'Comentario', sortable: false},
+          {text: 'Costo', value: 'Costo', sortable: false}
+        ],
+
         productos: [],
         ordenid: [],
+        cuenta: [],
 
         producto_dialog: false,
+
+        consulta:{
+            ord_id: ''
+        },
 
         detalles:{
           det_pro_id: '',
@@ -98,6 +127,7 @@
     created(){
       this.llenar_productos();
       this.llenar_ordenid();
+      this.llenar_cuenta();
     },
     methods:{ //instrucciones
       
@@ -119,6 +149,12 @@
       cancelar(){
         this.detalles = {};
         this.producto_dialog = false;
+      },
+
+      async llenar_cuenta(item){
+        console.log(item.OrdenId);
+          const api_data = await this.axios.get('detalles/detalles_de_una_orden/'+item.OrdenId.toString());
+          this.cuenta = api_data.data;
       },
     }
   }
