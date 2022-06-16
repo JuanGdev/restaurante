@@ -96,24 +96,19 @@ VALUES	('20', 'Libre'),
 		('1', 'Ocupada');
 
 INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
-	VALUES ('Samantha','Squash','Pérez'),
-	('Fernanda','Colunga','Ramírez'),
-	('Solaire','Aguilar','Ávila'),
-	('Hornet','Amador','Gómez'),
-	('Pedro','Pérez','Prado'),
-	('Idalid','Segoviano','Gudiño'),
-	('Natalia','Hernández','González'),
-	('Naomi','Gutiérrez','Arango'),
-	('Pablo','Cinefilio','Haceres'),
-	('Jair','Chávez','Playas');
+	VALUES  ('Samantha','Squash','Pérez'),
+			('Fernanda','Colunga','Ramírez'),
+			('Solaire','Aguilar','Ávila'),
+			('Hornet','Amador','Gómez'),
+			('Pedro','Pérez','Prado'),
+			('Idalid','Segoviano','Gudiño'),
+			('Natalia','Hernández','González'),
+			('Naomi','Gutiérrez','Arango'),
+			('Pablo','Cinefilio','Haceres'),
+			('Jair','Chávez','Playas');
 
 INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','postre'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
- 
-# La tabla de órdenes y detalles se llena desde nuestra aplicación web
-
-INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
-	VALUES	('1', '1','cerrada','2022-06-13 01:22:00', "Pambazo de chorizo con papas", 65);
 
