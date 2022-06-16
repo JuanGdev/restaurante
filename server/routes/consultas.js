@@ -89,6 +89,7 @@ router.get("/consultas5", async (req, res) => {
   return;
 });
 
+<<<<<<< HEAD
 // El total de venta por anio.
 router.get("/consultas6", async (req, res) => {
   try {
@@ -122,5 +123,7 @@ router.get("/consultas7", async (req, res) => {
   }
   return;
 });
+=======
+>>>>>>> parent of f4f397c (Agregue consultas y vista de consultas)
 
 module.exports = router; // Exporta todas las rutas definidas arriba
