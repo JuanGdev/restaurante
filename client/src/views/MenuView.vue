@@ -184,7 +184,7 @@ export default {
       await this.axios.put(
         "ordenes/estadocerrado/" + this.detalles.det_ord_id.toString()
       );
-      window.location.assign("http://localhost:8080/ordenes");
+      window.location.assign("http://localhost:8081/ordenes");
     },
 
     cancelar() {

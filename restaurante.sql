@@ -32,9 +32,6 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
 
-    pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(Comida o Bebida)',
-    pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco'),
-    
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
     INDEX (pro_nombre),
@@ -119,8 +116,8 @@ INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos
 			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
 
 INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
-	VALUES	('3', '1',"Sin verduras"),
-		    ('4', '2',"");
+	VALUES	#('3', '1',"Sin verduras"),
+		    ('22', '1',"sin verduras");
 
 SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
 	FROM orden AS o
@@ -133,5 +130,10 @@ SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_
 SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
 	FROM orden AS o, detalle AS d, producto AS p 
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
-    
+
+SELECT SUM(p.pro_costo) as Total
+	FROM orden AS o, detalle AS d, producto AS p 
+    WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 1;
+
+SELECT  MAX(ord_id) FROM orden;
 
