@@ -28,12 +28,8 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
-
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
-
-    pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(Comida o Bebida)',
-    pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco'),
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
@@ -94,8 +90,7 @@ VALUES	('20', 'Libre'),
 		('9', 'Libre'),
 		('7', 'Libre'),
 		('5', 'Libre'),
-		('3', 'Libre'),
-		('1', 'Ocupada');
+		('3', 'Libre');
 
 INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
 	VALUES ('Samantha','Squash','Pérez'),
@@ -113,25 +108,4 @@ INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
 	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema', 65,'comida','Garnacha'),
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
- 
-INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
-	VALUES	('1', '1','Cerrada',now(), "Pambazo de chorizo con papas", 65.00),
-			('3', '3','Cerrada',now(), "Carne de res con chile y frijoles", '70.00');
-
-INSERT INTO detalle (det_ord_id, det_pro_id, det_comentario)
-	VALUES	('3', '1',"Sin verduras"),
-		    ('4', '2',"");
-
-SELECT p.pro_nombre, p.pro_desc, p.pro_costo, p.pro_cob, p.pro_categoria, d.det_comentario
-	FROM orden AS o
-	INNER JOIN detalle as d
-		ON o.ord_id = d.det_ord_id
-	INNER JOIN producto as p
-		ON d.det_pro_id = p.pro_id
-	WHERE o.ord_id=3;
-
-SELECT p.pro_nombre AS Nombre, p.pro_desc AS Descripcion, p.pro_cob AS Tipo, p.pro_categoria AS Categoria, d.det_comentario AS Comentario, p.pro_costo AS Costo 
-	FROM orden AS o, detalle AS d, producto AS p 
-    WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 3;
-    
-
+            
