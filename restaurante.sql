@@ -105,8 +105,10 @@ INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat)
 	('Pablo','Cinefilio','Haceres'),
 	('Jair','Chávez','Playas');
 
-INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
-	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema', 65,'comida','Garnacha'),
-			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
-            ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('1', 'Caldo de pollo', 'Caldo de pollo con arroz y verduras', '65', 'Comida', 'Caldo');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('2', 'Pambazo de chorizo con papas', 'Pambazo acompañado de frijoles, chorizo, papas, lechuga y crema', '55', 'Comida', 'Garnacha');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('3', 'Copa de licor de caña', 'Contiene fino licor de caña marca Tonayan', '299', 'Bebida', 'Licor');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('4', 'Agua de limón', 'Agua fresca de limón (500 ml)', '25', 'Bebida', 'Agua');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('5', 'Pepsi de limón', 'Refresco sabor limón', '1', 'Bebida', 'Refresco');
+INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('6', 'Carne de res con chile rojo y frijoles', 'Plato con carne de res y salsa roja acompañada de frijoles y queso fresco', '75', 'Comida', 'Carne');
 
