@@ -1,3 +1,4 @@
+DROP SCHEMA restaurante_db;
 CREATE DATABASE IF NOT EXISTS restaurante_db;
 
 USE restaurante_db;
@@ -28,8 +29,13 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
+<<<<<<< HEAD
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
+=======
+    pro_cob ENUM ('comida','bebida') NOT NULL COMMENT 'COB(comida o bebida)',
+    pro_categoria ENUM ('garnacha','caldo','carne','postre','agua','cerveza','licor','refresco'),
+>>>>>>> 0099e7e44f1145798b4ffc29e0362c05596503e3
     
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
@@ -42,10 +48,10 @@ CREATE TABLE IF NOT EXISTS orden(
 	ord_id INT NOT NULL AUTO_INCREMENT,
     ord_mesa_id TINYINT,
     ord_mes_id TINYINT,
-    ord_estado ENUM ('Abierta','Cerrada','Pagada') NOT NULL,
-    ord_fecha DATETIME,
-    ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
-    ord_tot INT,
+    ord_estado ENUM ('abierta','cerrada','pagada') NOT NULL,
+    ord_fecha DATETIME NOT NULL,
+    ord_productos VARCHAR(300) NOT NULL COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
+    ord_tot INT NOT NULL,
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
     INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
@@ -66,7 +72,7 @@ CREATE TABLE IF NOT EXISTS orden(
 CREATE TABLE IF NOT EXISTS detalle(
 	det_ord_id INT,
     det_pro_id INT,
-    det_comentario VARCHAR(300) NOT NULL,
+    det_comentario VARCHAR(80) NOT NULL,
     
     CONSTRAINT fk_orden_detalle
     FOREIGN KEY (det_ord_id)
@@ -105,7 +111,33 @@ INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat)
 	('Jair','Chávez','Playas');
 
 INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
+<<<<<<< HEAD
 	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema', 65,'comida','Garnacha'),
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
             
+=======
+	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
+			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','agua'),
+            ('Carnitas','Incluye una orden de enchiladas','80.00', 'comida','carne'),
+            ('Mole de olla','Mole de olla acompañado con sopa de arroz y pollo','80.00', 'comida','garnacha'),
+            ('Cerveza Corona 500 ml','Incluye 2 adicionales','100.00', 'bebida','cerveza');
+ 
+
+# La tabla de órdenes y detalles se llena desde nuestra aplicación web
+
+INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
+	VALUES	('1', '1','pagada','2022-05-30 13:20:00', "Pambazo de chorizo con papas", 65),
+			('3', '10','pagada','2022-05-31 14:15:00', "Café de olla", 30),
+            ('5', '5','pagada','2022-06-01 18:10:00', "Carnitas", 80),
+            ('7', '8','pagada','2022-06-01 21:00:00', "Mole de olla", 120),
+            ('9', '3','pagada','2022-06-04 07:40:00', "Cerveza Corona 500 ml", 100);
+
+INSERT INTO detalle(det_ord_id, det_pro_id, det_comentario)
+	VALUES (2, 2, 'Media cucharada de azucar'),
+			(3, 3, 'Sin cueritos'),
+            (4, 4, 'Sin ajonojolí'),
+            (5, 5, 'Tibia');
+    
+
+>>>>>>> 0099e7e44f1145798b4ffc29e0362c05596503e3
