@@ -28,10 +28,13 @@ CREATE TABLE IF NOT EXISTS producto(
     pro_nombre VARCHAR(50) NOT NULL,
     pro_desc VARCHAR(150) NOT NULL COMMENT'Descripción del producto y de qué es lo que lleva',
     pro_costo INT NOT NULL COMMENT 'En pesos MXN',
-
     pro_cob ENUM ('Comida','Bebida') NOT NULL COMMENT 'COB(comida o bebida)',
     pro_categoria ENUM ('Garnacha','Caldo','Carne','Postre','Agua','Cerveza','Licor','Refresco', 'Bebida Caliente'),
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 0490b115296f1f9f8286344b16e8c8134b6bde24
     PRIMARY KEY (pro_id),                       #Se pretende que habrá muchos productos, por lo cual, una llave artificial ayuda a el manejo eficiente
     UNIQUE (pro_nombre, pro_costo, pro_cob),    #de la información y evita reduncdancias dentro de la base de datos
     INDEX (pro_nombre),
@@ -47,6 +50,7 @@ CREATE TABLE IF NOT EXISTS orden(
     ord_fecha DATETIME,
     ord_productos VARCHAR(300) COMMENT'Campo utilizado para describir los productos que se compraron y el precio de cada uno, sirve como desglose de toda la orden',
     ord_tot INT,
+
     
     PRIMARY KEY (ord_id),       #Se espera tener muchas ordenes, por lo cual al ser demasiada información el uso de una llave artificial resulta          
     INDEX (ord_fecha),          #una buena elección, además que las busquedas para cada una de estas sería más eficiente y el manejo de los datos más práctico
@@ -95,18 +99,19 @@ VALUES	('20', 'Libre'),
 		('1', 'Ocupada');
 
 INSERT INTO mesero (mes_nombre, mes_ap_pat, mes_ap_mat) 
-	VALUES ('Samantha','Squash','Pérez'),
-	('Fernanda','Colunga','Ramírez'),
-	('Solaire','Aguilar','Ávila'),
-	('Hornet','Amador','Gómez'),
-	('Pedro','Pérez','Prado'),
-	('Idalid','Segoviano','Gudiño'),
-	('Natalia','Hernández','González'),
-	('Naomi','Gutiérrez','Arango'),
-	('Pablo','Cinefilio','Haceres'),
-	('Jair','Chávez','Playas');
+	VALUES  ('Samantha','Squash','Pérez'),
+			('Fernanda','Colunga','Ramírez'),
+			('Solaire','Aguilar','Ávila'),
+			('Hornet','Amador','Gómez'),
+			('Pedro','Pérez','Prado'),
+			('Idalid','Segoviano','Gudiño'),
+			('Natalia','Hernández','González'),
+			('Naomi','Gutiérrez','Arango'),
+			('Pablo','Cinefilio','Haceres'),
+			('Jair','Chávez','Playas');
 
 INSERT INTO producto (pro_nombre, pro_desc, pro_costo, pro_cob, pro_categoria)
+<<<<<<< HEAD
 	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema', 65,'comida','Garnacha'),
 			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','Bebida','Bebida Caliente'),
             ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos', 70.00, 'Comida','Garnacha');
@@ -136,4 +141,9 @@ SELECT SUM(p.pro_costo) as Total
     WHERE d.det_ord_id = o.ord_id AND p.pro_id = d.det_pro_id AND o.ord_id = 1;
 
 SELECT  MAX(ord_id) FROM orden;
+=======
+	VALUES	('Pambazo de chorizo con papas', 'Pambazo relleno de chorizo, papas, lechuga y crema','65.00','comida','garnacha'),
+			('Café de olla', 'Café de olla con amaranto (500 ml)','30.00','bebida','postre'),
+            ('Carne de res con chile y frijoles','Plato con carne de res y chile rojo acompañado de frijoles refritos','70.00', 'comida','carne');
+>>>>>>> 0490b115296f1f9f8286344b16e8c8134b6bde24
 
