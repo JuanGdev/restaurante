@@ -112,3 +112,15 @@ INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pr
 INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('5', 'Pepsi de limón', 'Refresco sabor limón', '1', 'Bebida', 'Refresco');
 INSERT INTO `restaurante_db`.`producto` (`pro_id`, `pro_nombre`, `pro_desc`, `pro_costo`, `pro_cob`, `pro_categoria`) VALUES ('6', 'Carne de res con chile rojo y frijoles', 'Plato con carne de res y salsa roja acompañada de frijoles y queso fresco', '75', 'Comida', 'Carne');
 
+INSERT INTO orden (ord_mesa_id, ord_mes_id, ord_estado, ord_fecha, ord_productos, ord_tot)
+	VALUES	('1', '1','pagada','2022-05-30 13:20:00', "Pambazo de chorizo con papas", 65),
+			('3', '10','pagada','2022-05-31 14:15:00', "Café de olla", 30),
+            ('5', '5','pagada','2022-06-01 18:10:00', "Carnitas", 80),
+            ('7', '8','pagada','2022-06-01 21:00:00', "Mole de olla", 120),
+            ('9', '3','pagada','2022-06-04 07:40:00', "Cerveza Corona 500 ml", 100);
+
+INSERT INTO detalle(det_ord_id, det_pro_id, det_comentario)
+	VALUES (2, 2, 'Media cucharada de azucar'),
+			(3, 3, 'Sin cueritos'),
+            (4, 4, 'Sin ajonojolí'),
+            (5, 5, 'Tibia');
